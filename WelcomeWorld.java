@@ -1,20 +1,14 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class WelcomeWorld here.
- * 
- * @author Sean Xue
- * @version (a version number or a date)
- * 
- *
+ *Sound: https://www.youtube.com/watch?v=Fixkpg_MW3M
  */
 public class WelcomeWorld extends World
 {
-    //private Player player ;
     private Button startButton;
     private Button instructionsButton;
     private GreenfootImage background;
-    //private GreenfootSound backgroundMusic;
+    private GreenfootSound backgroundMusic;
     private Font comicFont = new Font ("Courier New", true, false, 60);
     
     /**
@@ -37,59 +31,35 @@ public class WelcomeWorld extends World
 
        instructionsButton = new Button ("Instructions");
        addObject(instructionsButton, 600, 500);
-
-       //player = new Player();
-       //addObject (player, 400, 360);
        
-       //backgroundMusic = new GreenfootSound ("nightwinds.mp3");
-       //backgroundMusic.playLoop();
+       backgroundMusic = new GreenfootSound ("Typing Keyboard Sound.mp3");
+       backgroundMusic.playLoop();
         
     }
     
-    //public void started () 
-    //{
-        //backgroundMusic.play();
-    //}
+    public void started ()
+    {
+        backgroundMusic.play();
+    }
     
-    //public void stopped () 
-    //{
-        //backgroundMusic.pause();
-        
-    //}
+    public void stopped () 
+    {
+        backgroundMusic.pause(); 
+    }
     
     public void act () 
     {
-        //checkKeys();
         checkMouse();
     }
 
     private void checkMouse() 
     {
-        //if (Greenfoot.mouseClicked(startButton))
-        //{
-            
-        //}
+
         if (Greenfoot.mouseClicked(instructionsButton))
         {
+            stopped(); //Stops the music
             Greenfoot.setWorld(new InstructionsWorld());
         }
     }
     
-    //private void checkKeys()
-    //{
-        //if (Greenfoot.isKeyDown("enter"))
-        //{
-            //if (startButton.touchingPlayer())
-            //{
-                //Greenfoot.setWorld(new Level1());
-            //} 
-            //if (instructionsButton.touchingPlayer())
-            //
-                // set World to InstructionsWorld
-                //Greenfoot.setWorld(new InstructionsWorld());
-            //}
-        //}
-        
-       
-    //}
 }
