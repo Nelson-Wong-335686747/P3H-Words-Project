@@ -24,14 +24,22 @@ public class GameWorld extends World
         } catch(Exception e) {
         }
         
+        
+        
         //Something to start the game
-        //While loop
-            //maybe like a timer or something
+        //while(lives>0){
+            
             //something to spawn the words
-            //something to detect user input
+            //checkUserInput();
             //something to detect if the words/chars are matching
             //some kind of scoring system
             //lives
+    }
+    
+    public void checkUserInput(){
+        //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
+        //other than that there shouldnt need to be any other user input?
+        //everything else should be related to the mouse
     }
     
     public String generateString(ArrayList<String> list){    
