@@ -13,14 +13,15 @@ public class Word extends Actor
     private String text;
     private Font font;
     
+    private int x;
     
     
-    
-    public Word(String string){
+    public Word(String string,int xPosition){
         text = string;
         
-        Font font = new Font("Century GOthic", false, false, 25);
+        Font font = new Font("Century Gothic", false, false, 25);
         
+        x = xPosition;
         draw();
         setImage(image);
     }
@@ -31,20 +32,21 @@ public class Word extends Actor
         setImage(image);
     }    
     
+    public void move()
+    {
+        setLocation(x,getY()+100); //random number
+    }
+    
     public void draw(){
         image = new GreenfootImage(50,20);
         image.setFont(font);
         
-        
-            
         image.setColor(Color.WHITE);    
         image.fill();
-        
         
         image.setColor(Color.BLACK);
         image.setFont (font);
         drawCenteredText (image,text, 25, 15);
-
     }
     
     public void update(String str){
