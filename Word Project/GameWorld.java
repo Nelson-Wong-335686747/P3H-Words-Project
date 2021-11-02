@@ -9,31 +9,38 @@ import java.util.ArrayList;
  */
 public class GameWorld extends World
 {
-
-    /**
-     * Constructor for objects of class GameWorld.
-     * 
-     */
+    private Timer timer;
+    private ArrayList<String> wordList;
+    
+    private String activeString = "";
+    
     public GameWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
-        ArrayList<String> wordList = new ArrayList<String>();
+        wordList = new ArrayList<String>();
         try{
                 Reader.readInto(wordList);
         } catch(Exception e) {
         }
         
+        timer = new Timer();
         
-        
-        //Something to start the game
+    }
+    
+    public void act(){
         //while(lives>0){
-            
-            //something to spawn the words
+            if(timer.getCycle() == 100){ //random number for now
+                timer.reset();
+                generateString(wordList);
+            }
+          
             //checkUserInput();
             //something to detect if the words/chars are matching
             //some kind of scoring system
             //lives
+            
+        
     }
     
     public void checkUserInput(){
