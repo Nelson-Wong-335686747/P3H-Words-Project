@@ -1,10 +1,7 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class Text here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * This class is used pile texts on top of each other
  */
 public class Text extends Actor
 {
@@ -25,11 +22,11 @@ public class Text extends Actor
     {
         if(typed)
         {
-            typed = true;
+            typed = true; //Sees if the text was typed
         }
         else
         {
-            typed = false;
+            typed = false; //Sees if the text was not typed
         }
     }
     
