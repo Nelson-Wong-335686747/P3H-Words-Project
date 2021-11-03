@@ -18,7 +18,7 @@ public class Word extends Actor
     private int x;
     
     
-    public Word(String string){
+    public Word(String string){ // add paramater for y value
         text = string;
         
         draw();
@@ -57,7 +57,11 @@ public class Word extends Actor
         drawCenteredText (image,text,30);
     }
     
-    public void update(){
+    public void updateText(String str){
+        text = str;
+    }
+    
+    public void updatePosition(){
         move();
         if(checkPosition())
         { 
