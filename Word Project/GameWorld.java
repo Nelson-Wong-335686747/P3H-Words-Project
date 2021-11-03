@@ -43,12 +43,11 @@ public class GameWorld extends World
     
     public void act()
     {
-        for(Word word: activeWords){
-            word.update();
-        }
-        
-        if(timer==10){
+        if(timer==100){
             manageWords();
+            for(Word word: activeWords){
+                word.update();
+            }
         }
         timer++;
     }

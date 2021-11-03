@@ -54,7 +54,7 @@ public class Word extends Actor
         
         image.setColor(Color.BLACK);
         image.setFont (font);
-        drawCenteredText (image,text,35);
+        drawCenteredText (image,text,30);
     }
     
     public void update(){
