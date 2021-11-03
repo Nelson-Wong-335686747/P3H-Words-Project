@@ -1,12 +1,10 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class WelcomeWorld here.
- * 
- * @author Sean Xue
- * @version (a version number or a date)
- * 
- *
+ * This is the welcome world
+ * -The user has 2 options in the welcome world that they can choose by clicking with their mouse
+ *  -InstuctionsButton; will send the user to the InstructionsWorld to see how to play the game.
+ *  -startButton; starts the game immediately
  */
 public class WelcomeWorld extends World
 {
