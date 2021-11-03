@@ -10,6 +10,9 @@ public class Word extends Actor
 {
     private GreenfootImage image;
     
+    private Timer timer;
+    
+    
     private String text;
     private Font font;
     
@@ -24,18 +27,22 @@ public class Word extends Actor
         x = xPosition;
         draw();
         setImage(image);
+        
+        timer = new Timer();
     }
     
     public void act() 
     {
         draw();
-        setLocation(x,getY()+100); //random number
+        if(timer.getCycle()%100==0){
+            setLocation(x,getY()+50); //random number
+        }
         setImage(image);
     }    
     
     
     public void draw(){
-        image = new GreenfootImage(50,20);
+        image = new GreenfootImage(200,20);
         image.setFont(font);
         
         image.setColor(Color.WHITE);    

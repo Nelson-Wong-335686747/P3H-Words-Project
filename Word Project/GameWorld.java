@@ -24,7 +24,7 @@ public class GameWorld extends World
         super(600, 400, 1); 
         
         try{
-                Reader.readInto(wordList);
+              Reader.readInto(wordList);
         } catch(Exception e) {
         }
         
@@ -36,10 +36,8 @@ public class GameWorld extends World
     
     public void act()
     {
-        while(timer.getCycle()<10000){
-            if(timer.getCycle()%1000==0){
-                manageWords();
-            }
+        if(timer.getCycle()%10==0){
+            manageWords();
         }
     }
     
@@ -47,9 +45,9 @@ public class GameWorld extends World
     {
         timer.reset();
         x++;
-        tempWord = new Word(generateString(wordList),150*x);
-        
+        tempWord = new Word(generateString(wordList),150*x); 
         addObject(tempWord,150*x,200);
+        activeWords.enqueue(tempWord);
         if(x==3){
             x=0;
         }
@@ -63,6 +61,6 @@ public class GameWorld extends World
     
     public String generateString(ArrayList<String> list){    
         //Gets random number, then finds that index on the list of words on the url in reader.
-        return list.get(Greenfoot.getRandomNumber(9000));
+        return list.get(Greenfoot.getRandomNumber(100));
     }
 }
