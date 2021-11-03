@@ -14,17 +14,13 @@ public class Word extends Actor
     
     
     private String text;
-    private Font font;
     
     private int x;
     
     
-    public Word(String string,int xPosition){
+    public Word(String string){
         text = string;
         
-        Font font = new Font("Century Gothic", false, false, 25);
-        
-        x = xPosition;
         draw();
         setImage(image);
         
@@ -34,15 +30,23 @@ public class Word extends Actor
     public void act() 
     {
         draw();
-        if(timer.getCycle()%100==0){
-            setLocation(x,getY()+50); //random number
-        }
         setImage(image);
     }    
     
+    public void move()
+    {
+         setLocation(getX(),getY()+50); //random number  
+    }
+    
+    public boolean checkPosition()
+    {
+        return getY()>GameWorld.WORLD_HEIGHT-35;
+    }
     
     public void draw(){
-        image = new GreenfootImage(200,20);
+        image = new GreenfootImage(500,35);
+        Font font = new Font("Century Gothic", false, false, 30);
+        
         image.setFont(font);
         
         image.setColor(Color.WHITE);    
@@ -50,11 +54,16 @@ public class Word extends Actor
         
         image.setColor(Color.BLACK);
         image.setFont (font);
-        drawCenteredText (image,text, 25, 15);
+        drawCenteredText (image,text,35);
     }
     
-    public void update(String str){
-        text = str;
+    public void update(){
+        move();
+        if(checkPosition())
+        { 
+           getWorld().removeObject(this);
+           GameWorld.activeWords.dequeue();
+        }
     }
     
     

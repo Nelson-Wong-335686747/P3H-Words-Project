@@ -3,6 +3,7 @@ import java.util.Iterator;
 public class Queue<T> implements Iterable<T>
 {
     private Node first, last;
+    private int size;
     
     private class Node {
         private T item;
@@ -13,6 +14,9 @@ public class Queue<T> implements Iterable<T>
         return first.item;
     }
     
+    public int getSize(){
+        return size;
+    }
     public boolean isEmpty() {
         return first == null;
     }
@@ -22,6 +26,7 @@ public class Queue<T> implements Iterable<T>
         last = new Node();
         last.item = item;
         last.next = null;
+        size++;
         if (isEmpty()) {
             first = last;
         } else {
@@ -32,6 +37,7 @@ public class Queue<T> implements Iterable<T>
     public T dequeue() {
         T item = first.item;
         first = first.next;
+        size--;
         if (isEmpty()) {
             last = null;
         }

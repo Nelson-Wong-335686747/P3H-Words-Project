@@ -9,48 +9,62 @@ import java.util.ArrayList;
  */
 public class GameWorld extends World
 {
-    private Timer timer;
+    //world variables
+    public static final int WORLD_WIDTH = 800;
+    public static final int WORLD_HEIGHT= 700;
     
+    
+    //data structures
     private ArrayList<String> wordList = new ArrayList<String>();
-    private Queue<Word> activeWords = new Queue<Word>();
+    public static Queue<Word> activeWords = new Queue<Word>();
     
+    //objects
     private Word tempWord;
+    
+    private int timer = 0;
     private String activeString = "";
-    private int x = 0;
+    private int n = 0;
     private int lives = 3;
     public GameWorld()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(WORLD_WIDTH,WORLD_HEIGHT,1); 
+        
         
         try{
               Reader.readInto(wordList);
         } catch(Exception e) {
         }
         
-        timer = new Timer();
-        Word test = new Word(generateString(wordList),300);
-        addObject(test, 300, 200);
+       
+        Word test = new Word(generateString(wordList));
+        addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
     }
     
     public void act()
     {
-        if(timer.getCycle()%10==0){
+        for(Word word: activeWords){
+            word.update();
+        }
+        
+        if(timer==10){
             manageWords();
         }
+        timer++;
     }
     
     public void manageWords()
     {
-        timer.reset();
-        x++;
-        tempWord = new Word(generateString(wordList),150*x); 
-        addObject(tempWord,150*x,200);
+        timer = 0;
+        n++;
+        tempWord = new Word(generateString(wordList)); 
+        addObject(tempWord,WORLD_WIDTH/2,200);
         activeWords.enqueue(tempWord);
-        if(x==3){
-            x=0;
+        if(n==3){
+            n=0;
         }
+        
+        
     }
     
     public void checkUserInput(){
@@ -61,6 +75,6 @@ public class GameWorld extends World
     
     public String generateString(ArrayList<String> list){    
         //Gets random number, then finds that index on the list of words on the url in reader.
-        return list.get(Greenfoot.getRandomNumber(100));
+        return list.get(Greenfoot.getRandomNumber(10000));
     }
 }
