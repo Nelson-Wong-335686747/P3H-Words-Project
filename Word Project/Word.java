@@ -29,13 +29,10 @@ public class Word extends Actor
     public void act() 
     {
         draw();
+        setLocation(x,getY()+100); //random number
         setImage(image);
     }    
     
-    public void move()
-    {
-        setLocation(x,getY()+100); //random number
-    }
     
     public void draw(){
         image = new GreenfootImage(50,20);

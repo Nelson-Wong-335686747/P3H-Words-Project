@@ -14,6 +14,7 @@ public class GameWorld extends World
     private ArrayList<String> wordList = new ArrayList<String>();
     private Queue<Word> activeWords = new Queue<Word>();
     
+    private Word tempWord;
     private String activeString = "";
     private int x = 0;
     private int lives = 3;
@@ -28,34 +29,29 @@ public class GameWorld extends World
         }
         
         timer = new Timer();
+        Word test = new Word(generateString(wordList),300);
+        addObject(test, 300, 200);
+        activeWords.enqueue(test);
     }
     
-    public void act(){
-        while(lives>0){
-            if(timer.getCycle() == 100){ //random number for now
-                timer.reset();
-                x++;
-                activeWords.enqueue(new Word(generateString(wordList),150*x));
-                if(x==3){
-                    x=0;
-                }
+    public void act()
+    {
+        while(timer.getCycle()<10000){
+            if(timer.getCycle()%1000==0){
+                manageWords();
             }
-            /** 
-            for(Word word : activeWords){
-                word.move(); 
-                //if word.get y below a certain amount lose a life
-            }
-            */
-            //checkUserInput();
-                //something to detect if the words/chars are matching
-                    // compare user input string to first q
-                        //if match, delete,dequeue, and give score
-                        //if not, we have two options:
-                            //make the word do more 'damage' if it passes
-                            //straight up make the player take damage
-            //some kind of scoring system
-            //lives
-            
+        }
+    }
+    
+    public void manageWords()
+    {
+        timer.reset();
+        x++;
+        tempWord = new Word(generateString(wordList),150*x);
+        
+        addObject(tempWord,150*x,200);
+        if(x==3){
+            x=0;
         }
     }
     
@@ -67,6 +63,6 @@ public class GameWorld extends World
     
     public String generateString(ArrayList<String> list){    
         //Gets random number, then finds that index on the list of words on the url in reader.
-        return list.get(Greenfoot.getRandomNumber(10000));
+        return list.get(Greenfoot.getRandomNumber(9000));
     }
 }
