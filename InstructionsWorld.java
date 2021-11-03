@@ -1,18 +1,22 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
 /**
- * Write a description of class InstructionsWorld here.
+ * InstructionsWorld
+ * -Gives a breif explanation of how the game should be played
+ * -beginButton starts the game (GameWorld)
+ * -returnButton goes back to the main menu (WelcomeWorld)
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Credits 
+ * -CP - Pizza Parlor | Club Penguin Music - Pizza Parlor | https://www.youtube.com/watch?v=srNKLDAt3Pk
  */
 public class InstructionsWorld extends World
 {
     private GreenfootImage background;
-    //private Player player;
     private Button returnButton;
     private Button beginButton;
     private Font comicFont = new Font ("Courier New", true, false, 60);
+    
+    private GreenfootSound InstructionsMusic = new GreenfootSound("CP - Pizza Parlor.mp3");
     
     /**
      * Constructor for objects of class InstructionWorld.
@@ -31,10 +35,6 @@ public class InstructionsWorld extends World
         //Draw instruction title
         background.drawString ("Instructions",170, 70);
         
-        //Add player
-        //player = new Player();
-        //addObject (player, 400, 360);
-        
         //Draw two buttons
         returnButton = new Button ("Back");
         beginButton = new Button ("Begin");
@@ -44,9 +44,19 @@ public class InstructionsWorld extends World
         addObject(beginButton, 700, 570);
     }
 
+    public void started () 
+    {
+        InstructionsMusic.playLoop();
+    }
+    
+    public void stopped () 
+    {
+        InstructionsMusic.pause();
+    }
+    
     public void act () 
     {
-        //checkKeys();
+        started();
         checkMouse();
     }
     
@@ -54,26 +64,15 @@ public class InstructionsWorld extends World
     {
         if (Greenfoot.mouseClicked(returnButton))
         {
+            stopped();
             Greenfoot.setWorld(new WelcomeWorld());
         }
-        //else if (Greenfoot.mouseClicked(beginButton))
-        //{
-            //Greenfoot.setWorld(new Level1());
-        //}
+        
+        if(Greenfoot.mouseClicked(beginButton))
+        {
+            stopped();
+            Greenfoot.setWorld(new GameWorld());
+        }
     }
     
-    //private void checkKeys()
-    //{
-        //if (Greenfoot.isKeyDown("enter"))
-        //{
-           //if (returnButton.touchingPlayer())
-           //{
-                //Greenfoot.setWorld(new WelcomeWorld());
-           //}
-           //else if (beginButton.touchingPlayer())
-           //{
-               //Greenfoot.setWorld(new Level1());
-           //}  
-        ///}
-    //
 }

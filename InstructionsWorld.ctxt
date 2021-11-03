@@ -1,11 +1,15 @@
 #BlueJ class context
 comment0.target=InstructionsWorld
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ InstructionsWorld\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ InstructionsWorld\r\n\ -Gives\ a\ breif\ explanation\ of\ how\ the\ game\ should\ be\ played\r\n\ -beginButton\ starts\ the\ game\ (GameWorld)\r\n\ -returnButton\ goes\ back\ to\ the\ main\ menu\ (WelcomeWorld)\r\n\ \r\n\ Credits\ \r\n\ -CP\ -\ Pizza\ Parlor\ |\ Club\ Penguin\ Music\ -\ Pizza\ Parlor\ |\ https\://www.youtube.com/watch?v\=srNKLDAt3Pk\r\n
 comment1.params=
 comment1.target=InstructionsWorld()
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ InstructionWorld.\r\n\ \r\n
 comment2.params=
-comment2.target=void\ act()
+comment2.target=void\ started()
 comment3.params=
-comment3.target=void\ checkMouse()
-numComments=4
+comment3.target=void\ stopped()
+comment4.params=
+comment4.target=void\ act()
+comment5.params=
+comment5.target=void\ checkMouse()
+numComments=6

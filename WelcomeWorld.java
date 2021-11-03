@@ -5,14 +5,19 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * -The user has 2 options in the welcome world that they can choose by clicking with their mouse
  *  -InstuctionsButton; will send the user to the InstructionsWorld to see how to play the game.
  *  -startButton; starts the game immediately
+ *  
+ * -Credit
+ *  -Typing Sound - Keyboard Typing Sound Effect No Copyright For Free | Slow, Medium & Fast Typing - https://www.youtube.com/watch?v=Fixkpg_MW3M
  */
 public class WelcomeWorld extends World
 {
     private Button startButton;
     private Button instructionsButton;
     private GreenfootImage background;
-    private GreenfootSound backgroundMusic;
+    
     private Font comicFont = new Font ("Courier New", true, false, 60);
+    
+    private GreenfootSound backgroundMusic = new GreenfootSound ("Typing Sound.mp3");
     
     /**
      * Constructor for objects of class WelcomeWorld.
@@ -35,9 +40,6 @@ public class WelcomeWorld extends World
        instructionsButton = new Button ("Instructions");
        addObject(instructionsButton, 600, 500);
 
-       backgroundMusic = new GreenfootSound ("Typing Sound.mp3");
-       
-        
     }
     
     public void started () 
@@ -52,6 +54,7 @@ public class WelcomeWorld extends World
     
     public void act () 
     {
+        started();
         checkMouse();
     }
 
@@ -61,6 +64,12 @@ public class WelcomeWorld extends World
         {
             stopped();
             Greenfoot.setWorld(new InstructionsWorld());
+        }
+        
+        if(Greenfoot.mouseClicked(startButton))
+        {
+            stopped();
+            Greenfoot.setWorld(new GameWorld());
         }
     }
     
