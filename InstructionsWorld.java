@@ -7,7 +7,7 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  * -returnButton goes back to the main menu (WelcomeWorld)
  * 
  * Credits 
- * -CP - Pizza Parlor | Club Penguin Music - Pizza Parlor | https://www.youtube.com/watch?v=srNKLDAt3Pk
+ * -CP - Pizza Parlor --Youtube Tite --> Club Penguin Music - Pizza Parlor --Link--> https://www.youtube.com/watch?v=srNKLDAt3Pk
  */
 public class InstructionsWorld extends World
 {

@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=WelcomeWorld
-comment0.text=\r\n\ This\ is\ the\ welcome\ world\r\n\ -The\ user\ has\ 2\ options\ in\ the\ welcome\ world\ that\ they\ can\ choose\ by\ clicking\ with\ their\ mouse\r\n\ \ -InstuctionsButton;\ will\ send\ the\ user\ to\ the\ InstructionsWorld\ to\ see\ how\ to\ play\ the\ game.\r\n\ \ -startButton;\ starts\ the\ game\ immediately\r\n\ \ \r\n\ -Credit\r\n\ \ -Typing\ Sound\ -\ Keyboard\ Typing\ Sound\ Effect\ No\ Copyright\ For\ Free\ |\ Slow,\ Medium\ &\ Fast\ Typing\ -\ https\://www.youtube.com/watch?v\=Fixkpg_MW3M\r\n
+comment0.text=\r\n\ This\ is\ the\ welcome\ world\r\n\ -The\ user\ has\ 2\ options\ in\ the\ welcome\ world\ that\ they\ can\ choose\ by\ clicking\ with\ their\ mouse\r\n\ \ -InstuctionsButton;\ will\ send\ the\ user\ to\ the\ InstructionsWorld\ to\ see\ how\ to\ play\ the\ game.\r\n\ \ -startButton;\ starts\ the\ game\ immediately\r\n\ \ \r\n\ Credit\r\n\ \ -Typing\ Sound\ --Youtube\ Title\ -->\ Keyboard\ Typing\ Sound\ Effect\ No\ Copyright\ For\ Free\ |\ Slow,\ Medium\ &\ Fast\ Typing\ --Link-->\ https\://www.youtube.com/watch?v\=Fixkpg_MW3M\r\n
 comment1.params=
 comment1.target=WelcomeWorld()
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ WelcomeWorld.\r\n\ \r\n

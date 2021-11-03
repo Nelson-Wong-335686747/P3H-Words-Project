@@ -2,47 +2,67 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * Write a description of class GameWorld here.
+ * GameWorld 
+ * -Where the game begins
  * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Credit
+ * -HarryStylesWatermelonSugar --Youtube Title--> Harry Styles - Watermelon Sugar (Official Video) --Link--> https://www.youtube.com/watch?v=E07s5ZYygMg
  */
 public class GameWorld extends World
 {
+    private GreenfootSound GameMusic = new GreenfootSound("HarryStylesWatermelonSugar.mp3");
+    
     private Timer timer;
+    
     private ArrayList<String> wordList = new ArrayList<String>();
     private Queue<Word> activeWords = new Queue<Word>();
-    private String activeString = "";
     
+    private String activeString = "";
+    private int x = 0;
+    private int lives = 3;
     public GameWorld()
     {    
         // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
         super(600, 400, 1); 
         
-        try{
-                Reader.readInto(wordList);
-        } catch(Exception e) {
+        try
+        {
+            Reader.readInto(wordList);
+        } 
+        catch(Exception e) 
+        {
         }
         
         timer = new Timer();
-        
+    }
+    
+    public void started () 
+    {
+        GameMusic.playLoop();
+    }
+    
+    public void stopped () 
+    {
+        GameMusic.pause();
     }
     
     public void act(){
-        //while(lives>0){
+        GameMusic.playLoop();
+        while(lives>0){
             if(timer.getCycle() == 100){ //random number for now
                 timer.reset();
-                //add a parameter for the x value of the words
-                //and use a counter up to three or smthg for the three? 
-                //collumns of words
-                activeWords.enqueue(new Word(generateString(wordList)));
+                x++;
+                activeWords.enqueue(new Word(generateString(wordList),150*x));
+                if(x==3){
+                    x=0;
+                }
             }
-            /**
-             * for(Word word : activeWords){
-             *    word.move() -- go down a certain amount
-             *    if word.get y below a certain amount lose a life
-             * }
-             */
+            /** 
+            for(Word word : activeWords){
+                word.move(); 
+                //if word.get y below a certain amount lose a life
+            }
+            */
             //checkUserInput();
                 //something to detect if the words/chars are matching
                     // compare user input string to first q
@@ -53,7 +73,7 @@ public class GameWorld extends World
             //some kind of scoring system
             //lives
             
-        
+        }
     }
     
     public void checkUserInput(){

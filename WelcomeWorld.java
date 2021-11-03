@@ -6,8 +6,8 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
  *  -InstuctionsButton; will send the user to the InstructionsWorld to see how to play the game.
  *  -startButton; starts the game immediately
  *  
- * -Credit
- *  -Typing Sound - Keyboard Typing Sound Effect No Copyright For Free | Slow, Medium & Fast Typing - https://www.youtube.com/watch?v=Fixkpg_MW3M
+ * Credit
+ *  -Typing Sound --Youtube Title --> Keyboard Typing Sound Effect No Copyright For Free | Slow, Medium & Fast Typing --Link--> https://www.youtube.com/watch?v=Fixkpg_MW3M
  */
 public class WelcomeWorld extends World
 {
