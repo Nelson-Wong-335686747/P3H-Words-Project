@@ -38,13 +38,13 @@ public class WelcomeWorld extends World
        addObject(instructionsButton, 600, 500);
 
        backgroundMusic = new GreenfootSound ("Typing Sound.mp3");
-       backgroundMusic.playLoop();
+       
         
     }
     
     public void started () 
     {
-        backgroundMusic.play();
+        backgroundMusic.playLoop();
     }
     
     public void stopped () 
