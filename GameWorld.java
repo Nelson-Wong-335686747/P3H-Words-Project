@@ -109,7 +109,10 @@ public class GameWorld extends World
                 if(activeWords.getFirst().getText().equals(userString))
                 {
                     removeObject(activeWords.getFirst());
-                    activeWords.dequeue();
+                    Word wordSize = activeWords.dequeue();
+                    
+                    //score = score + wordSize.getLength() * 50;
+
                 }
             }
             userString = "";
@@ -200,7 +203,7 @@ public class GameWorld extends World
         }
         
         if(userString.length()>0){
-            addObject(new Word(userString), 50, WORLD_HEIGHT - 50);
+            userInput.updateText(userString);
         }
         
     }
