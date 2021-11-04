@@ -24,11 +24,11 @@ public class Word extends Actor
         
     }
     
-    //public int getLength(String str){
-        //int lengthOfWord = str.length();
+    public int getLength(){
+        int lengthOfWord = text.length();
         
-        //return lengthOfWord;
-    //}
+        return lengthOfWord;
+    }
     
     public void act() 
     {

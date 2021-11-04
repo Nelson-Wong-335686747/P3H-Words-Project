@@ -111,7 +111,7 @@ public class GameWorld extends World
                     removeObject(activeWords.getFirst());
                     Word wordSize = activeWords.dequeue();
                     
-                    //score = score + wordSize.getLength() * 50;
+                    score = score + wordSize.getLength() * 50;
 
                 }
             }
