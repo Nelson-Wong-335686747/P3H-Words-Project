@@ -54,6 +54,9 @@ public class GameWorld extends World
         Word test = new Word(generateString(wordList));
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
+        
+        userInput = new Word(userString);
+        addObject(userInput,WORLD_WIDTH/3,WORLD_HEIGHT-50);
     }
     
     public void started () 
@@ -78,9 +81,8 @@ public class GameWorld extends World
             for(Word word: activeWords){
                 word.updatePosition();
             }
-            
-            timer++;
         }
+        timer++;
     }
     
      public void manageWords()
@@ -101,11 +103,17 @@ public class GameWorld extends World
         //everything else should be related to the mouse
         if(Greenfoot.isKeyDown("enter"))
         {
-            //compare with queue
-            //if(userString.equals(tempWord))
-            //{
-                
-            //}
+            //compare userString with text of first in queue 
+            if(activeWords.getSize() > 0)
+            {
+                if(activeWords.getFirst().getText().equals(userString))
+                {
+                    removeObject(activeWords.getFirst());
+                    activeWords.dequeue();
+                }
+            }
+            userString = "";
+            userInput.updateText(userString);
         } else {
             String key = Greenfoot.getKey();
             if(key!= null){

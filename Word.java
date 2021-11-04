@@ -10,8 +10,6 @@ public class Word extends Actor
 {
     private GreenfootImage image;
     
-    private Timer timer;
-    
     
     private String text;
     
@@ -24,7 +22,6 @@ public class Word extends Actor
         draw();
         setImage(image);
         
-        timer = new Timer();
     }
     
     public void act() 
@@ -33,32 +30,18 @@ public class Word extends Actor
         setImage(image);
     }    
     
+    public void updateText(String str){
+        text = str;
+    }
+    
+    public String getText()
+    {
+        return text;
+    }
+    
     public void move()
     {
          setLocation(getX(),getY()+50); //random number  
-    }
-    
-    public boolean checkPosition()
-    {
-        return getY()>GameWorld.WORLD_HEIGHT-35;
-    }
-    
-    public void draw(){
-        image = new GreenfootImage(500,35);
-        Font font = new Font("Century Gothic", false, false, 30);
-        
-        image.setFont(font);
-        
-        image.setColor(Color.WHITE);    
-        image.fill();
-        
-        image.setColor(Color.BLACK);
-        image.setFont (font);
-        drawCenteredText (image,text,30);
-    }
-    
-    public void updateText(String str){
-        text = str;
     }
     
     public void updatePosition(){
@@ -69,6 +52,27 @@ public class Word extends Actor
            GameWorld.activeWords.dequeue();
         }
     }
+    
+    private boolean checkPosition()
+    {
+        return getY()>GameWorld.WORLD_HEIGHT-35;
+    }
+    
+    private void draw(){
+        image = new GreenfootImage(500,35);
+        Font font = new Font("Century Gothic", false, false, 30);
+        
+        image.setFont(font);
+        
+        image.setColor(Color.WHITE);    
+        image.fill();
+        
+        image.setColor(Color.BLACK);
+        image.setFont (font);
+        drawCenteredText (image,text,27);
+    }
+    
+    
     
     
     

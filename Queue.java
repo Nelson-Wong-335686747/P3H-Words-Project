@@ -17,6 +17,7 @@ public class Queue<T> implements Iterable<T>
     public int getSize(){
         return size;
     }
+    
     public boolean isEmpty() {
         return first == null;
     }
