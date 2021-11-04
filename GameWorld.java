@@ -22,7 +22,11 @@ public class GameWorld extends World
     
     private int timer = 0;
     private int n = 0;
+    
+    private int wordsLeft;
+    private int wordsTyped;
     private int lives = 3;
+    private int score;
     
     public String userString = "";
     
@@ -64,6 +68,9 @@ public class GameWorld extends World
     
     public void act(){
         GameMusic.playLoop();
+        
+        scoreBar.update(wordsLeft, wordsTyped, lives, score);
+        
         checkUserInput();
         
         if(timer==100){
@@ -88,17 +95,17 @@ public class GameWorld extends World
         }
     }
     
- public void checkUserInput(){
+     public void checkUserInput(){
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
         //everything else should be related to the mouse
         if(Greenfoot.isKeyDown("enter"))
         {
             //compare with queue
-            if(userString.equals(tempWord))
-            {
+            //if(userString.equals(tempWord))
+            //{
                 
-            }
+            //}
         } else {
             String key = Greenfoot.getKey();
             if(key!= null){
