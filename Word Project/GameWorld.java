@@ -44,6 +44,8 @@ public class GameWorld extends World
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
         
+        userInput = new Word(userString);
+        addObject(userInput,WORLD_WIDTH/3,WORLD_HEIGHT-50);
     }
     
     public void act()
@@ -77,7 +79,7 @@ public class GameWorld extends World
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
         //everything else should be related to the mouse
-        if(Greenfoot.isKeyDown("enter"))
+        if(userString.length() > 0 && Greenfoot.isKeyDown("enter"))
         {
             //compare with queue
         } else {
@@ -165,7 +167,7 @@ public class GameWorld extends World
             }
         }
         if(userString.length()>0){
-            addObject(new Word(userString), 50, WORLD_HEIGHT - 50);
+            userInput.updateText(userString);
         }
         
     }

@@ -10,8 +10,6 @@ public class Word extends Actor
 {
     private GreenfootImage image;
     
-    private Timer timer;
-    
     
     private String text;
     
@@ -24,7 +22,6 @@ public class Word extends Actor
         draw();
         setImage(image);
         
-        timer = new Timer();
     }
     
     public void act() 
@@ -54,7 +51,7 @@ public class Word extends Actor
         
         image.setColor(Color.BLACK);
         image.setFont (font);
-        drawCenteredText (image,text,30);
+        drawCenteredText (image,text,27);
     }
     
     public void updateText(String str){
