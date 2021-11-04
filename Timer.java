@@ -25,3 +25,4 @@ public class Timer extends Actor
     public void reset(){
         cycle = 0;
     }
+}

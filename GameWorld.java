@@ -12,18 +12,29 @@ public class GameWorld extends World
 {
     private GreenfootSound GameMusic = new GreenfootSound("HarryStylesWatermelonSugar.mp3");
     
-    private Timer timer;
+    //world variables
+    public static final int WORLD_WIDTH = 800;
+    public static final int WORLD_HEIGHT= 700;
     
+    //data structures
     private ArrayList<String> wordList = new ArrayList<String>();
-    private Queue<Word> activeWords = new Queue<Word>();
+    public static Queue<Word> activeWords = new Queue<Word>();
     
-    private String activeString = "";
-    private int x = 0;
+    private int timer = 0;
+    private int n = 0;
     private int lives = 3;
+    
+    public String userString = "";
+    
+    //objects
+    private Word tempWord;
+    private Word userInput;
+    
+    private ScoreBar scoreBar;
+    
     public GameWorld()
     {    
-        // Create a new world with 600x400 cells with a cell size of 1x1 pixels.
-        super(600, 400, 1); 
+        super(WORLD_WIDTH,WORLD_HEIGHT,1); 
         
         try
         {
@@ -33,7 +44,12 @@ public class GameWorld extends World
         {
         }
         
-        timer = new Timer();
+        scoreBar = new ScoreBar(800);
+        addObject(scoreBar, 400, 15);
+        
+        Word test = new Word(generateString(wordList));
+        addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
+        activeWords.enqueue(test);
     }
     
     public void started () 
@@ -48,38 +64,130 @@ public class GameWorld extends World
     
     public void act(){
         GameMusic.playLoop();
-        while(lives>0){
-            if(timer.getCycle() == 100){ //random number for now
-                timer.reset();
-                x++;
-                activeWords.enqueue(new Word(generateString(wordList),150*x));
-                if(x==3){
-                    x=0;
-                }
+        checkUserInput();
+        
+        if(timer==100){
+            manageWords();
+            for(Word word: activeWords){
+                word.updatePosition();
             }
-            /** 
-            for(Word word : activeWords){
-                word.move(); 
-                //if word.get y below a certain amount lose a life
-            }
-            */
-            //checkUserInput();
-                //something to detect if the words/chars are matching
-                    // compare user input string to first q
-                        //if match, delete,dequeue, and give score
-                        //if not, we have two options:
-                            //make the word do more 'damage' if it passes
-                            //straight up make the player take damage
-            //some kind of scoring system
-            //lives
             
+            timer++;
         }
     }
     
-    public void checkUserInput(){
+     public void manageWords()
+    {
+        timer = 0;
+        n++;
+        tempWord = new Word(generateString(wordList)); 
+        addObject(tempWord,WORLD_WIDTH/2,0);
+        activeWords.enqueue(tempWord);
+        if(n==3){
+            n=0;
+        }
+    }
+    
+ public void checkUserInput(){
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
         //everything else should be related to the mouse
+        if(Greenfoot.isKeyDown("enter"))
+        {
+            //compare with queue
+            if(userString.equals(tempWord))
+            {
+                
+            }
+        } else {
+            String key = Greenfoot.getKey();
+            if(key!= null){
+                if(key.equals("a"))
+                {
+                    userString += "a";
+                } else if(key.equals("b"))
+                {
+                    userString += "b";
+                } else if(key.equals("c"))
+                {
+                    userString += "c";
+                } else if(key.equals("d"))
+                {
+                    userString += "d";
+                } else if(key.equals("e"))
+                {
+                    userString += "e";
+                } else if(key.equals("f"))
+                {
+                    userString += "f";
+                } else if(key.equals("g"))
+                {
+                    userString += "g";
+                } else if(key.equals("h"))
+                {
+                    userString += "h";
+                } else if(key.equals("i"))
+                {
+                    userString += "i";
+                } else if(key.equals("j"))
+                {
+                    userString += "j";
+                } else if(key.equals("k"))
+                {
+                    userString += "k";
+                } else if(key.equals("l"))
+                {
+                    userString += "l";
+                } else if(key.equals("m"))
+                {
+                    userString += "m";
+                } else if(key.equals("n"))
+                {
+                    userString += "n";
+                } else if(key.equals("o"))
+                {
+                    userString += "o";
+                } else if(key.equals("p"))
+                {
+                    userString += "p";
+                } else if(key.equals("q"))
+                {
+                    userString += "q";
+                } else if(key.equals("r"))
+                {
+                    userString += "r";
+                } else if(key.equals("s"))
+                {
+                    userString += "s";
+                } else if(key.equals("t"))
+                {
+                    userString += "t";
+                } else if(key.equals("u"))
+                {
+                    userString += "u";
+                } else if(key.equals("v"))
+                {
+                    userString += "v";
+                } else if(key.equals("w"))
+                {
+                    userString += "w";
+                } else if(key.equals("x"))
+                {
+                    userString += "x";
+                } else if(key.equals("y"))
+                {
+                    userString += "y";
+                } else if(key.equals("z"))
+                {
+                    userString += "z";
+                }
+            }
+        }
+        
+        if(userString.length()>0){
+            addObject(new Word(userString), 50, WORLD_HEIGHT - 50);
+        }
+        
     }
     
     public String generateString(ArrayList<String> list){    
