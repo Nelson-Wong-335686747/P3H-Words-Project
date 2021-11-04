@@ -30,17 +30,35 @@ public class Word extends Actor
         setImage(image);
     }    
     
+    public void updateText(String str){
+        text = str;
+    }
+    
+    public String getText()
+    {
+        return text;
+    }
+    
     public void move()
     {
          setLocation(getX(),getY()+50); //random number  
     }
     
-    public boolean checkPosition()
+    public void updatePosition(){
+        move();
+        if(checkPosition())
+        { 
+           getWorld().removeObject(this);
+           GameWorld.activeWords.dequeue();
+        }
+    }
+    
+    private boolean checkPosition()
     {
         return getY()>GameWorld.WORLD_HEIGHT-35;
     }
     
-    public void draw(){
+    private void draw(){
         image = new GreenfootImage(500,35);
         Font font = new Font("Century Gothic", false, false, 30);
         
@@ -54,18 +72,7 @@ public class Word extends Actor
         drawCenteredText (image,text,27);
     }
     
-    public void updateText(String str){
-        text = str;
-    }
     
-    public void updatePosition(){
-        move();
-        if(checkPosition())
-        { 
-           getWorld().removeObject(this);
-           GameWorld.activeWords.dequeue();
-        }
-    }
     
     
     
