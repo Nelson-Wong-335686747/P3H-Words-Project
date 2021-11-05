@@ -15,6 +15,7 @@ public class GameWorld extends World
     //world variables
     public static final int WORLD_WIDTH = 800;
     public static final int WORLD_HEIGHT= 700;
+    public static int GAME_LIVES = 3;
     
     //data structures
     private ArrayList<String> wordList = new ArrayList<String>();
@@ -26,7 +27,6 @@ public class GameWorld extends World
     
     private int wordsLeft;
     private int wordsTyped;
-    private int lives = 3;
     private int score;
     
     public String userString = "";
@@ -36,6 +36,7 @@ public class GameWorld extends World
     private Word uInputDsplay;
     
     private ScoreBar scoreBar;
+    
     
     public GameWorld()
     {    
@@ -73,9 +74,9 @@ public class GameWorld extends World
     public void act(){
         GameMusic.playLoop();
         
-        scoreBar.update(wordsLeft, wordsTyped, lives, score);
+        scoreBar.update(wordsLeft, wordsTyped, GAME_LIVES, score);
         
-        checkUserInput();
+        checkUserInput();        
         
         if(timer==100){
             manageWords();
@@ -120,12 +121,12 @@ public class GameWorld extends World
             }
             userString = userInput.popAll();
             uInputDsplay.updateText(userString);
+
         } else {
             String key = Greenfoot.getKey();
             if(key!= null){
                 if(key.equals("backspace")  && userString !=null)
                 {
-                    userInput.pop();
                     
                 }
                 else if(key.equals("a"))
@@ -217,7 +218,7 @@ public class GameWorld extends World
         }
         
     }
-        
+
     public String stackToString(Stack<Character> stack)
     {
         String str = "";
@@ -232,4 +233,5 @@ public class GameWorld extends World
         //Gets random number, then finds that index on the list of words on the url in reader.
         return list.get(Greenfoot.getRandomNumber(10000));
     }
+
 }
