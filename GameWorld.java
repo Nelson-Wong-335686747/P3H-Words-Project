@@ -80,20 +80,18 @@ public class GameWorld extends World
         
         scoreBar.update(wordsLeft, wordsTyped, lives, score);
         
-        checkUserInput();
-        
-        if(activeWords.getFirst().getRemoveMe())
-        {
-            lives--;
-            removeObject(activeWords.getFirst());
-        }
-        
-        
+        checkUserInput();        
         
         if(timer==100){
             manageWords();
             for(Word word: activeWords){
                 word.updatePosition();
+                
+                if(activeWords.getFirst().getRemoveMe())
+                {
+                    removeObject(activeWords.getFirst());
+                    lives--;
+                }
             }
         }
         timer++;
