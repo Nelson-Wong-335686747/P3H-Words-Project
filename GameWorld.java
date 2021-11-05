@@ -35,6 +35,9 @@ public class GameWorld extends World
     private Word userInput;
     
     private ScoreBar scoreBar;
+    private Floor floor;
+    
+    
     
     public GameWorld()
     {    
@@ -54,6 +57,9 @@ public class GameWorld extends World
         Word test = new Word(generateString(wordList));
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
+        
+        floor = new Floor();
+        addObject(floor, 400, 700);
         
         userInput = new Word(userString);
         addObject(userInput,WORLD_WIDTH/3,WORLD_HEIGHT-50);
@@ -75,6 +81,14 @@ public class GameWorld extends World
         scoreBar.update(wordsLeft, wordsTyped, lives, score);
         
         checkUserInput();
+        
+        //if(activeWords.getFirst().getRemoveMe())
+        //{
+            //lives--;
+            //this.removeObject(activeWords.getFirst());
+        //}
+        
+        
         
         if(timer==100){
             manageWords();

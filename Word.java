@@ -15,6 +15,8 @@ public class Word extends Actor
     
     private int x;
     
+    private boolean removeMe;
+    
     
     public Word(String string){ // add paramater for y value
         text = string;
@@ -30,10 +32,17 @@ public class Word extends Actor
         return lengthOfWord;
     }
     
+    public boolean getRemoveMe()
+    {
+        return removeMe;
+    }
+    
     public void act() 
     {
         draw();
         setImage(image);
+        
+
     }    
     
     public void updateText(String str){
@@ -47,7 +56,14 @@ public class Word extends Actor
     
     public void move()
     {
-         setLocation(getX(),getY()+50); //random number  
+        setLocation(getX(),getY()+50); //random number 
+         
+        Floor floorPoint = (Floor)getOneIntersectingObject(Floor.class);  
+        
+        if(floorPoint != null)
+        {
+            removeMe = true;
+        }
     }
     
     public void updatePosition(){

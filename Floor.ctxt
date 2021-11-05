@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.target=Floor
+comment0.text=\r\n\ Floor\r\n\r\n\ This\ class\ is\ for\ a\ game\ world\ to\ add\ an\ instance\ of\ the\ floor\ class\ \r\n\ on\ the\ ground\ (bottom\ corner\ of\ the\ screen)\r\n
+comment1.params=
+comment1.target=Floor()
+comment2.params=
+comment2.target=greenfoot.GreenfootImage\ drawFloor()
+numComments=3
