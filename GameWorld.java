@@ -82,11 +82,11 @@ public class GameWorld extends World
         
         checkUserInput();
         
-        //if(activeWords.getFirst().getRemoveMe())
-        //{
-            //lives--;
-            //this.removeObject(activeWords.getFirst());
-        //}
+        if(activeWords.getFirst().getRemoveMe())
+        {
+            lives--;
+            removeObject(activeWords.getFirst());
+        }
         
         
         

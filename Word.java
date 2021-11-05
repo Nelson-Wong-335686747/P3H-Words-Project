@@ -58,9 +58,14 @@ public class Word extends Actor
     {
         setLocation(getX(),getY()+50); //random number 
          
-        Floor floorPoint = (Floor)getOneIntersectingObject(Floor.class);  
+        //Floor floorPoint = (Floor)getOneIntersectingObject(Floor.class);  
         
-        if(floorPoint != null)
+        //if(floorPoint != null)
+        //{
+            //removeMe = true;
+        //}
+        
+        if(getY()+60 > 700)
         {
             removeMe = true;
         }
