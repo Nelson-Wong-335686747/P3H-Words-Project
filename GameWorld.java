@@ -76,6 +76,12 @@ public class GameWorld extends World
         
         scoreBar.update(wordsLeft, wordsTyped, GAME_LIVES, score);
         
+        if(GAME_LIVES <= 0)
+        {
+            stopped();
+            //Greenfoot.setWorld(new GameOverWorld());
+        }
+        
         checkUserInput();        
         
         if(timer==100){
@@ -127,7 +133,7 @@ public class GameWorld extends World
             if(key!= null){
                 if(key.equals("backspace")  && userString !=null)
                 {
-                    
+                    userInput.pop();
                 }
                 else if(key.equals("a"))
                 {
