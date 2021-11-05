@@ -122,7 +122,15 @@ public class GameWorld extends World
         } else {
             String key = Greenfoot.getKey();
             if(key!= null){
-                if(key.equals("a"))
+                if(key.equals("backspace"))
+                {
+                    if(userString != null)
+                    {
+                        userString = userString.substring(0, userString.length()-1);
+                        userInput.updateText(userString);
+                    }
+                }
+                else if(key.equals("a"))
                 {
                     userString += "a";
                 } else if(key.equals("b"))
