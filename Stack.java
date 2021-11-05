@@ -26,6 +26,15 @@ public class Stack<E> implements Iterable<E>
         return item;
     }
     
+    public String popAll()
+    {
+        String str = "";
+        while(!isEmpty())
+        {
+            str = pop() + str;
+        }
+        return str;
+    }
     // To make this data structure work with for-each loops
     public Iterator<E> iterator() {
         return new MyIterator();
