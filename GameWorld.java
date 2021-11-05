@@ -20,6 +20,7 @@ public class GameWorld extends World
     //data structures
     private ArrayList<String> wordList = new ArrayList<String>();
     public static Queue<Word> activeWords = new Queue<Word>();
+    public static Stack<Character> userInput = new Stack<Character>();
     
     private int timer = 0;
     private int n = 0;
@@ -32,7 +33,7 @@ public class GameWorld extends World
     
     //objects
     private Word tempWord;
-    private Word userInput;
+    private Word uInputDsplay;
     
     private ScoreBar scoreBar;
     
@@ -56,8 +57,8 @@ public class GameWorld extends World
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
         
-        userInput = new Word(userString);
-        addObject(userInput,WORLD_WIDTH/3,WORLD_HEIGHT-50);
+        uInputDsplay = new Word(userString);
+        addObject(uInputDsplay,WORLD_WIDTH/3,WORLD_HEIGHT-50);
     }
     
     public void started () 
@@ -81,12 +82,6 @@ public class GameWorld extends World
             manageWords();
             for(Word word: activeWords){
                 word.updatePosition();
-                
-                //if(activeWords.getFirst().getRemoveMe())
-                //{
-                    //removeObject(activeWords.getFirst());
-                    //lives--;
-                //}
             }
         }
         timer++;
@@ -124,108 +119,121 @@ public class GameWorld extends World
 
                 }
             }
-            userString = "";
-            userInput.updateText(userString);
+            userString = userInput.popAll();
+            uInputDsplay.updateText(userString);
+            
         } else {
             String key = Greenfoot.getKey();
             if(key!= null){
                 if(key.equals("backspace")  && userString !=null)
                 {
                     
-                    userString = userString.substring(0, userString.length()-1);
-                    userInput.updateText(userString);
+                    userInput.pop();
                     
                 }
                 else if(key.equals("a"))
                 {
-                    userString += "a";
+                    userInput.push('a');
                 } else if(key.equals("b"))
                 {
-                    userString += "b";
+                    userInput.push('b');
                 } else if(key.equals("c"))
                 {
-                    userString += "c";
+                    userInput.push('c');
                 } else if(key.equals("d"))
                 {
-                    userString += "d";
+                    userInput.push('d');
                 } else if(key.equals("e"))
                 {
-                    userString += "e";
+                    userInput.push('e');
                 } else if(key.equals("f"))
                 {
-                    userString += "f";
+                    userInput.push('f');
                 } else if(key.equals("g"))
                 {
-                    userString += "g";
+                    userInput.push('g');
                 } else if(key.equals("h"))
                 {
-                    userString += "h";
+                    userInput.push('h');
                 } else if(key.equals("i"))
                 {
-                    userString += "i";
+                    userInput.push('i');
                 } else if(key.equals("j"))
                 {
-                    userString += "j";
+                    userInput.push('j');
                 } else if(key.equals("k"))
                 {
-                    userString += "k";
+                    userInput.push('k');
                 } else if(key.equals("l"))
                 {
-                    userString += "l";
+                    userInput.push('l');
                 } else if(key.equals("m"))
                 {
-                    userString += "m";
+                    userInput.push('m');
                 } else if(key.equals("n"))
                 {
-                    userString += "n";
+                    userInput.push('n');
                 } else if(key.equals("o"))
                 {
-                    userString += "o";
+                    userInput.push('o');
                 } else if(key.equals("p"))
                 {
-                    userString += "p";
+                    userInput.push('p');
                 } else if(key.equals("q"))
                 {
-                    userString += "q";
+                    userInput.push('q');
                 } else if(key.equals("r"))
                 {
-                    userString += "r";
+                    userInput.push('r');
                 } else if(key.equals("s"))
                 {
-                    userString += "s";
+                    userInput.push('s');
                 } else if(key.equals("t"))
                 {
-                    userString += "t";
+                    userInput.push('t');
                 } else if(key.equals("u"))
                 {
-                    userString += "u";
+                    userInput.push('u');
                 } else if(key.equals("v"))
                 {
-                    userString += "v";
+                    userInput.push('v');
                 } else if(key.equals("w"))
                 {
-                    userString += "w";
+                    userInput.push('w');
                 } else if(key.equals("x"))
                 {
-                    userString += "x";
+                    userInput.push('x');
                 } else if(key.equals("y"))
                 {
-                    userString += "y";
+                    userInput.push('y');
                 } else if(key.equals("z"))
                 {
-                    userString += "z";
+                    userInput.push('z');
                 }
             }
         }
         
-        if(userString.length()>0){
-            userInput.updateText(userString);
+        if(!userInput.isEmpty()){
+            userString = stackToString(userInput);
+            
+            uInputDsplay.updateText(userString);
         }
         
     }
     
+    public String stackToString(Stack<Character> stack)
+    {
+        String str = "";
+        for(char c : stack)
+        {
+            str = c + str;
+        }
+        return str;
+    }
+     
     public String generateString(ArrayList<String> list){    
         //Gets random number, then finds that index on the list of words on the url in reader.
         return list.get(Greenfoot.getRandomNumber(10000));
     }
+
 }
