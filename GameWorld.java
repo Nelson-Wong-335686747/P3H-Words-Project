@@ -15,6 +15,7 @@ public class GameWorld extends World
     //world variables
     public static final int WORLD_WIDTH = 800;
     public static final int WORLD_HEIGHT= 700;
+    public static int GAME_LIVES = 3;
     
     //data structures
     private ArrayList<String> wordList = new ArrayList<String>();
@@ -25,7 +26,6 @@ public class GameWorld extends World
     
     private int wordsLeft;
     private int wordsTyped;
-    private int lives = 3;
     private int score;
     
     public String userString = "";
@@ -35,8 +35,6 @@ public class GameWorld extends World
     private Word userInput;
     
     private ScoreBar scoreBar;
-    private Floor floor;
-    
     
     
     public GameWorld()
@@ -58,9 +56,6 @@ public class GameWorld extends World
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
         
-        floor = new Floor();
-        addObject(floor, 400, 700);
-        
         userInput = new Word(userString);
         addObject(userInput,WORLD_WIDTH/3,WORLD_HEIGHT-50);
     }
@@ -78,7 +73,7 @@ public class GameWorld extends World
     public void act(){
         GameMusic.playLoop();
         
-        scoreBar.update(wordsLeft, wordsTyped, lives, score);
+        scoreBar.update(wordsLeft, wordsTyped, GAME_LIVES, score);
         
         checkUserInput();        
         
@@ -87,11 +82,11 @@ public class GameWorld extends World
             for(Word word: activeWords){
                 word.updatePosition();
                 
-                if(activeWords.getFirst().getRemoveMe())
-                {
-                    removeObject(activeWords.getFirst());
-                    lives--;
-                }
+                //if(activeWords.getFirst().getRemoveMe())
+                //{
+                    //removeObject(activeWords.getFirst());
+                    //lives--;
+                //}
             }
         }
         timer++;

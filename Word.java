@@ -77,6 +77,7 @@ public class Word extends Actor
         { 
            getWorld().removeObject(this);
            GameWorld.activeWords.dequeue();
+           GameWorld.GAME_LIVES --;
         }
     }
     
