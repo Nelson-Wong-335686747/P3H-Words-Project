@@ -19,6 +19,7 @@ public class GameWorld extends World
     //data structures
     private ArrayList<String> wordList = new ArrayList<String>();
     public static Queue<Word> activeWords = new Queue<Word>();
+    public static Stack<Character> userCharacters = new Stack<Character>();
     
     private int timer = 0;
     private int n = 0;

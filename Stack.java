@@ -1,8 +1,6 @@
 import java.util.Iterator;
-import java.util.*;
 
-
-public class Stack<E> 
+public class Stack<E> implements Iterable<E>
 {
     private Node first = null;
     
@@ -26,5 +24,29 @@ public class Stack<E>
         E item = first.item;
         first = first.next;
         return item;
+    }
+    
+    // To make this data structure work with for-each loops
+    public Iterator<E> iterator() {
+        return new MyIterator();
+    }
+
+    class MyIterator implements Iterator<E> {
+
+        private Node n = first;
+
+        public boolean hasNext() {
+            return n != null;
+        }
+
+        public E next() {
+            E item = n.item;
+            n = n.next;
+            return item;
+        }
+
+        public void remove() {
+            throw new UnsupportedOperationException();
+        }
     }
 }
