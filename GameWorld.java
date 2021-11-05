@@ -99,7 +99,7 @@ public class GameWorld extends World
         }
     }
     
-     public void checkUserInput(){
+    public void checkUserInput(){
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
         //everything else should be related to the mouse
@@ -116,19 +116,17 @@ public class GameWorld extends World
                     wordsTyped++;
                     
                     score = score + wordSize.getLength() * 50;
-
+    
                 }
             }
             userString = userInput.popAll();
             uInputDsplay.updateText(userString);
-            
+
         } else {
             String key = Greenfoot.getKey();
             if(key!= null){
                 if(key.equals("backspace")  && userString !=null)
                 {
-                    
-                    userInput.pop();
                     
                 }
                 else if(key.equals("a"))
@@ -220,7 +218,7 @@ public class GameWorld extends World
         }
         
     }
-    
+
     public String stackToString(Stack<Character> stack)
     {
         String str = "";
