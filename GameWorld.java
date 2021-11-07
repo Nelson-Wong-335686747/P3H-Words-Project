@@ -7,6 +7,7 @@ import java.util.ArrayList;
  * 
  * Credit
  * -HarryStylesWatermelonSugar --Youtube Title--> Harry Styles - Watermelon Sugar (Official Video) --Link--> https://www.youtube.com/watch?v=E07s5ZYygMg
+ * -Type Sound --YouTubeTitle --> Keyboard Typing Sound Effect --Link--> https://www.youtube.com/watch?v=RLTUMyiLVZE
  */
 public class GameWorld extends World
 {
@@ -83,20 +84,8 @@ public class GameWorld extends World
     public void act(){
         started();
         
-        scoreBar.update(wordsSpawned, wordsTyped, GAME_LIVES, score);
-        
-        if(GAME_LIVES < 0)
-        {
-            stopped();
-            GAME_LIVES = 3;
-            for(Word word: activeWords){
-                word.updatePosition();
-            }
-            Greenfoot.setWorld(new GameOverWorld());
-        }
-        
-        checkUserInput();        
-        
+        checkUserInput(); 
+              
         if(timer==100){
             manageWords();
             for(Word word: activeWords){
@@ -104,6 +93,20 @@ public class GameWorld extends World
             }
             wordsSpawned++;
         }
+        
+        scoreBar.update(wordsSpawned, wordsTyped, GAME_LIVES, score);  
+        
+        if(GAME_LIVES < 0)
+        {
+            stopped();
+            GAME_LIVES = 3;
+            for(Word word: activeWords){
+                removeObject(word);
+                activeWords.dequeue();
+            }
+            Greenfoot.setWorld(new GameOverWorld());
+        }
+
         timer++;
     }
     
@@ -123,22 +126,21 @@ public class GameWorld extends World
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
         //everything else should be related to the mouse
-        if(Greenfoot.isKeyDown("enter"))
+        if(activeWords.getSize() > 0 && Greenfoot.isKeyDown("enter"))
         {
             //compare userString with text of first in queue 
-            if(activeWords.getSize() > 0)
+
+            if(activeWords.getFirst().getText().equals(userString))
             {
-                if(activeWords.getFirst().getText().equals(userString))
-                {
-                    removeObject(activeWords.getFirst());
-                    Word wordSize = activeWords.dequeue();
-                    
-                    wordsTyped++;
-                    
-                    score = score + wordSize.getLength() * 50;
-    
-                }
+                removeObject(activeWords.getFirst());
+                Word wordSize = activeWords.dequeue();
+                
+                wordsTyped++;
+                
+                score = score + wordSize.getLength() * 50;
+
             }
+            
             userString = userInput.popAll();
             uInputDsplay.updateText(userString);
 
