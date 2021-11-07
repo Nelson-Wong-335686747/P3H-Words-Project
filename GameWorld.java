@@ -36,7 +36,7 @@ public class GameWorld extends World
     
     //objects
     private Word tempWord;
-    private Word uInputDsplay;
+    private Word uInputDisplay;
     
     private ScoreBar scoreBar;
     
@@ -60,8 +60,8 @@ public class GameWorld extends World
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
         
-        uInputDsplay = new Word(userString);
-        addObject(uInputDsplay,WORLD_WIDTH/3,WORLD_HEIGHT-50);
+        uInputDisplay = new Word(userString);
+        addObject(uInputDisplay,WORLD_WIDTH/2,650);
     }
     
     public void started () 
@@ -147,7 +147,7 @@ public class GameWorld extends World
             }
             
             userString = userInput.popAll();
-            uInputDsplay.updateText(userString);
+            uInputDisplay.updateText(userString);
 
         } 
         else {
@@ -290,6 +290,11 @@ public class GameWorld extends World
                 }
             }
         } 
+        
+        userString = stackToString(userInput);
+
+        uInputDisplay.updateText(userString);
+        
     }
 
     public String stackToString(Stack<Character> stack)

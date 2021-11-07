@@ -42,8 +42,6 @@ public class Word extends Actor
     {
         draw();
         setImage(image);
-        
-
     }    
     
     public void updateText(String str){
@@ -76,7 +74,7 @@ public class Word extends Actor
     }
     
     private void draw(){
-        image = new GreenfootImage(500,35);
+        image = new GreenfootImage(text.length()*30 + 100,35);
         Font font = new Font("Century Gothic", false, false, 30);
         
         image.setFont(font);
