@@ -79,7 +79,7 @@ public class GameWorld extends World
         if(GAME_LIVES <= 0)
         {
             stopped();
-            //Greenfoot.setWorld(new GameOverWorld());
+            Greenfoot.setWorld(new GameOverWorld());
         }
         
         checkUserInput();        
