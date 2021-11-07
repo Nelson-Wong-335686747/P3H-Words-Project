@@ -1,14 +1,12 @@
 import greenfoot.*;
 /**
- * 
+ * When the user loses all 3 lives, then they will be redirected into the WelcomeWorld.
  */
 public class GameOverWorld extends World  
 {
     private Button goBackButton;
     
     private Font comicFont = new Font ("Courier New", true, false, 60);
-    
-    private int actsLeft;
     
     public GameOverWorld()
     {

@@ -26,7 +26,8 @@ public class Word extends Actor
         
     }
     
-    public int getLength(){
+    public int getLength() //Get's the length of the word
+    {
         int lengthOfWord = text.length();
         
         return lengthOfWord;
@@ -65,7 +66,7 @@ public class Word extends Actor
         { 
            getWorld().removeObject(this);
            GameWorld.activeWords.dequeue();
-           GameWorld.GAME_LIVES --;
+           GameWorld.GAME_LIVES--;
         }
     }
     

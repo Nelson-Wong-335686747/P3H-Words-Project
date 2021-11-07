@@ -10,7 +10,9 @@ import java.util.ArrayList;
  */
 public class GameWorld extends World
 {
+    //Sounds
     private GreenfootSound GameMusic = new GreenfootSound("HarryStylesWatermelonSugar.mp3");
+    private GreenfootSound TypeSound = new GreenfootSound("Type Sound.mp3");
     
     //world variables
     public static final int WORLD_WIDTH = 800;
@@ -63,6 +65,7 @@ public class GameWorld extends World
     
     public void started () 
     {
+        GameMusic.setVolume(40);
         GameMusic.playLoop();
     }
     
@@ -71,8 +74,14 @@ public class GameWorld extends World
         GameMusic.pause();
     }
     
+    public void typingSound()
+    {
+        TypeSound.setVolume(100);
+        TypeSound.play();
+    }
+    
     public void act(){
-        GameMusic.playLoop();
+        started();
         
         scoreBar.update(wordsSpawned, wordsTyped, GAME_LIVES, score);
         
@@ -80,6 +89,9 @@ public class GameWorld extends World
         {
             stopped();
             GAME_LIVES = 3;
+            for(Word word: activeWords){
+                word.updatePosition();
+            }
             Greenfoot.setWorld(new GameOverWorld());
         }
         
@@ -136,85 +148,112 @@ public class GameWorld extends World
                 if(key.equals("backspace")  && userString !=null)
                 {
                     userInput.pop();
+                    typingSound();
                 }
                 else if(key.equals("a"))
                 {
                     userInput.push('a');
+                    typingSound();
                 } else if(key.equals("b"))
                 {
                     userInput.push('b');
+                    typingSound();
                 } else if(key.equals("c"))
                 {
                     userInput.push('c');
+                    typingSound();
                 } else if(key.equals("d"))
                 {
                     userInput.push('d');
+                    typingSound();
                 } else if(key.equals("e"))
                 {
                     userInput.push('e');
+                    typingSound();
                 } else if(key.equals("f"))
                 {
                     userInput.push('f');
+                    typingSound();
                 } else if(key.equals("g"))
                 {
                     userInput.push('g');
+                    typingSound();
                 } else if(key.equals("h"))
                 {
                     userInput.push('h');
+                    typingSound();
                 } else if(key.equals("i"))
                 {
                     userInput.push('i');
+                    typingSound();
                 } else if(key.equals("j"))
                 {
                     userInput.push('j');
+                    typingSound();
                 } else if(key.equals("k"))
                 {
                     userInput.push('k');
+                    typingSound();
                 } else if(key.equals("l"))
                 {
                     userInput.push('l');
+                    typingSound();
                 } else if(key.equals("m"))
                 {
                     userInput.push('m');
+                    typingSound();
                 } else if(key.equals("n"))
                 {
                     userInput.push('n');
+                    typingSound();
                 } else if(key.equals("o"))
                 {
                     userInput.push('o');
+                    typingSound();
                 } else if(key.equals("p"))
                 {
                     userInput.push('p');
+                    typingSound();
                 } else if(key.equals("q"))
                 {
                     userInput.push('q');
+                    typingSound();
                 } else if(key.equals("r"))
                 {
                     userInput.push('r');
+                    typingSound();
                 } else if(key.equals("s"))
                 {
                     userInput.push('s');
+                    typingSound();
                 } else if(key.equals("t"))
                 {
                     userInput.push('t');
+                    typingSound();
                 } else if(key.equals("u"))
                 {
                     userInput.push('u');
+                    typingSound();
                 } else if(key.equals("v"))
                 {
                     userInput.push('v');
+                    typingSound();
                 } else if(key.equals("w"))
                 {
                     userInput.push('w');
+                    typingSound();
                 } else if(key.equals("x"))
                 {
                     userInput.push('x');
+                    typingSound();
                 } else if(key.equals("y"))
                 {
                     userInput.push('y');
+                    typingSound();
                 } else if(key.equals("z"))
                 {
                     userInput.push('z');
+                    typingSound();
                 }
             }
         }

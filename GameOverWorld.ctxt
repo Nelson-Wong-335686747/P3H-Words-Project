@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=GameOverWorld
-comment0.text=\r\n\ \r\n
+comment0.text=\r\n\ When\ the\ user\ loses\ all\ 3\ lives,\ then\ they\ will\ be\ redirected\ into\ the\ WelcomeWorld.\r\n
 comment1.params=
 comment1.target=GameOverWorld()
 comment2.params=
