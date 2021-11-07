@@ -104,13 +104,18 @@ public class GameWorld extends World
                 removeObject(word);
                 activeWords.dequeue();
             }
+            
+            for(char c : userInput){
+                userInput.pop();
+            }
+            
             Greenfoot.setWorld(new GameOverWorld());
         }
 
         timer++;
     }
     
-     public void manageWords()
+    public void manageWords()
     {
         timer = 0;
         n++;
@@ -144,10 +149,11 @@ public class GameWorld extends World
             userString = userInput.popAll();
             uInputDsplay.updateText(userString);
 
-        } else {
+        } 
+        else {
             String key = Greenfoot.getKey();
             if(key!= null){
-                if(key.equals("backspace")  && userString !=null)
+                if(userInput.getSize() > 0 && key.equals("backspace"))
                 {
                     userInput.pop();
                     typingSound();
@@ -156,116 +162,134 @@ public class GameWorld extends World
                 {
                     userInput.push('a');
                     typingSound();
-                } else if(key.equals("b"))
+                } 
+                else if(key.equals("b"))
                 {
                     userInput.push('b');
                     typingSound();
-                } else if(key.equals("c"))
+                } 
+                else if(key.equals("c"))
                 {
                     userInput.push('c');
                     typingSound();
-                } else if(key.equals("d"))
+                } 
+                else if(key.equals("d"))
                 {
                     userInput.push('d');
                     typingSound();
-                } else if(key.equals("e"))
+                } 
+                else if(key.equals("e"))
                 {
                     userInput.push('e');
                     typingSound();
-                } else if(key.equals("f"))
+                } 
+                else if(key.equals("f"))
                 {
                     userInput.push('f');
                     typingSound();
-                } else if(key.equals("g"))
+                } 
+                else if(key.equals("g"))
                 {
                     userInput.push('g');
                     typingSound();
-                } else if(key.equals("h"))
+                } 
+                else if(key.equals("h"))
                 {
                     userInput.push('h');
                     typingSound();
-                } else if(key.equals("i"))
+                } 
+                else if(key.equals("i"))
                 {
                     userInput.push('i');
                     typingSound();
-                } else if(key.equals("j"))
+                } 
+                else if(key.equals("j"))
                 {
                     userInput.push('j');
                     typingSound();
-                } else if(key.equals("k"))
+                } 
+                else if(key.equals("k"))
                 {
                     userInput.push('k');
                     typingSound();
-                } else if(key.equals("l"))
+                } 
+                else if(key.equals("l"))
                 {
                     userInput.push('l');
                     typingSound();
-                } else if(key.equals("m"))
+                } 
+                else if(key.equals("m"))
                 {
                     userInput.push('m');
                     typingSound();
-                } else if(key.equals("n"))
+                } 
+                else if(key.equals("n"))
                 {
                     userInput.push('n');
                     typingSound();
-                } else if(key.equals("o"))
+                } 
+                else if(key.equals("o"))
                 {
                     userInput.push('o');
                     typingSound();
-                } else if(key.equals("p"))
+                } 
+                else if(key.equals("p"))
                 {
                     userInput.push('p');
                     typingSound();
-                } else if(key.equals("q"))
+                } 
+                else if(key.equals("q"))
                 {
                     userInput.push('q');
                     typingSound();
-                } else if(key.equals("r"))
+                } 
+                else if(key.equals("r"))
                 {
                     userInput.push('r');
                     typingSound();
-                } else if(key.equals("s"))
+                } 
+                else if(key.equals("s"))
                 {
                     userInput.push('s');
                     typingSound();
-                } else if(key.equals("t"))
+                } 
+                else if(key.equals("t"))
                 {
                     userInput.push('t');
                     typingSound();
-                } else if(key.equals("u"))
+                } 
+                else if(key.equals("u"))
                 {
                     userInput.push('u');
                     typingSound();
-                } else if(key.equals("v"))
+                } 
+                else if(key.equals("v"))
                 {
                     userInput.push('v');
                     typingSound();
-                } else if(key.equals("w"))
+                } 
+                else if(key.equals("w"))
                 {
                     userInput.push('w');
                     typingSound();
-                } else if(key.equals("x"))
+                } 
+                else if(key.equals("x"))
                 {
                     userInput.push('x');
                     typingSound();
-                } else if(key.equals("y"))
+                } 
+                else if(key.equals("y"))
                 {
                     userInput.push('y');
                     typingSound();
-                } else if(key.equals("z"))
+                } 
+                else if(key.equals("z"))
                 {
                     userInput.push('z');
                     typingSound();
                 }
             }
-        }
-        
-        if(!userInput.isEmpty()){
-            userString = stackToString(userInput);
-            
-            uInputDsplay.updateText(userString);
-        }
-        
+        } 
     }
 
     public String stackToString(Stack<Character> stack)

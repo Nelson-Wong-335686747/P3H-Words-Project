@@ -76,7 +76,7 @@ public class ScoreBar extends Actor
         // Write text over the solid background
         scoreBoard.setColor(foreground);  
         // Smart piece of code that centers text
-        int centeredY = (width/2) - ((output.length() * 14)/2);
+        int centeredY = (width/2) - ((output.length() * 12)/2);
         // Draw the text onto the image
         scoreBoard.drawString(output, centeredY, 22);
     }

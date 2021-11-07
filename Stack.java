@@ -2,7 +2,8 @@ import java.util.Iterator;
 
 public class Stack<E> implements Iterable<E>
 {
-    private Node first = null;
+    private Node first = null; 
+    private int size = 0;
     
     private class Node {
         private E item;
@@ -18,12 +19,24 @@ public class Stack<E> implements Iterable<E>
         first = new Node();
         first.item = item;
         first.next = second;
+        size++;
     }
     
     public E pop() {
         E item = first.item;
         first = first.next;
+        size--;
         return item;
+    }
+    
+    public int getSize()
+    {
+        return size;
+    }
+
+    public E peek()
+    {
+        return first.item;
     }
     
     public String popAll()

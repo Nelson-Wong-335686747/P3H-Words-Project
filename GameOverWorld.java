@@ -26,8 +26,5 @@ public class GameOverWorld extends World
         {
             Greenfoot.setWorld(new WelcomeWorld());
         }
-
     }
-    
-
 }
