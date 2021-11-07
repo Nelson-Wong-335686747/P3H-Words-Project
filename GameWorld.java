@@ -2,12 +2,12 @@ import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 import java.util.ArrayList;
 
 /**
- * GameWorld 
- * -Where the game begins
- * 
- * Credit
- * -HarryStylesWatermelonSugar --Youtube Title--> Harry Styles - Watermelon Sugar (Official Video) --Link--> https://www.youtube.com/watch?v=E07s5ZYygMg
- */
+* GameWorld 
+* -Where the game begins
+* 
+* Credit
+* -HarryStylesWatermelonSugar --Youtube Title--> Harry Styles - Watermelon Sugar (Official Video) --Link--> https://www.youtube.com/watch?v=E07s5ZYygMg
+*/
 public class GameWorld extends World
 {
     private GreenfootSound GameMusic = new GreenfootSound("HarryStylesWatermelonSugar.mp3");
@@ -33,7 +33,7 @@ public class GameWorld extends World
     
     //objects
     private Word tempWord;
-    private Word uInputDsplay;
+    private Word uInputDisplay;
     
     private ScoreBar scoreBar;
     
@@ -53,12 +53,8 @@ public class GameWorld extends World
         scoreBar = new ScoreBar(800);
         addObject(scoreBar, 400, 15);
         
-        Word test = new Word(generateString(wordList));
-        addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
-        activeWords.enqueue(test);
-        
-        uInputDsplay = new Word(userString);
-        addObject(uInputDsplay,WORLD_WIDTH/3,WORLD_HEIGHT-50);
+        uInputDisplay = new Word(userString);
+        addObject(uInputDisplay,WORLD_WIDTH/3,WORLD_HEIGHT-50);
     }
     
     public void started () 
@@ -74,15 +70,6 @@ public class GameWorld extends World
     public void act(){
         GameMusic.playLoop();
         
-        scoreBar.update(wordsSpawned, wordsTyped, GAME_LIVES, score);
-        
-        if(GAME_LIVES < 0)
-        {
-            stopped();
-            GAME_LIVES = 3;
-            Greenfoot.setWorld(new GameOverWorld());
-        }
-        
         checkUserInput();        
         
         if(timer==100){
@@ -92,6 +79,21 @@ public class GameWorld extends World
             }
             wordsSpawned++;
         }
+        
+        
+        scoreBar.update(wordsSpawned, wordsTyped, GAME_LIVES, score);
+        
+        if(GAME_LIVES == 0)
+        {
+            stopped();
+            GAME_LIVES = 3;
+            for(Word word: activeWords){
+                removeObject(word);
+                activeWords.dequeue();
+            }
+            Greenfoot.setWorld(new GameOverWorld());
+        }
+        
         timer++;
     }
     
@@ -111,25 +113,25 @@ public class GameWorld extends World
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
         //everything else should be related to the mouse
-        if(Greenfoot.isKeyDown("enter"))
+        if(activeWords.getSize() > 0 && Greenfoot.isKeyDown("enter"))
         {
             //compare userString with text of first in queue 
-            if(activeWords.getSize() > 0)
+            
+            
+            if(activeWords.getFirst().getText().equals(userString))
             {
-                if(activeWords.getFirst().getText().equals(userString))
-                {
-                    removeObject(activeWords.getFirst());
-                    Word wordSize = activeWords.dequeue();
-                    
-                    wordsTyped++;
-                    
-                    score = score + wordSize.getLength() * 50;
-    
-                }
-            }
-            userString = userInput.popAll();
-            uInputDsplay.updateText(userString);
+                removeObject(activeWords.getFirst());
+                Word wordSize = activeWords.dequeue();
+                
+                wordsTyped++;
+                
+                score = score + wordSize.getLength() * 50;
 
+            }
+        
+            userString = userInput.popAll();
+            uInputDisplay.updateText(userString);
+    
         } else {
             String key = Greenfoot.getKey();
             if(key!= null){
@@ -222,11 +224,11 @@ public class GameWorld extends World
         if(!userInput.isEmpty()){
             userString = stackToString(userInput);
             
-            uInputDsplay.updateText(userString);
+            uInputDisplay.updateText(userString);
         }
         
     }
-
+    
     public String stackToString(Stack<Character> stack)
     {
         String str = "";
@@ -241,5 +243,5 @@ public class GameWorld extends World
         //Gets random number, then finds that index on the list of words on the url in reader.
         return list.get(Greenfoot.getRandomNumber(10000));
     }
-
+    
 }
