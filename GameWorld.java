@@ -91,6 +91,9 @@ public class GameWorld extends World
                 removeObject(word);
                 activeWords.dequeue();
             }
+            for(char c : userInput){
+                userInput.pop();
+            }
             Greenfoot.setWorld(new GameOverWorld());
         }
         
@@ -135,7 +138,7 @@ public class GameWorld extends World
         } else {
             String key = Greenfoot.getKey();
             if(key!= null){
-                if(key.equals("backspace")  && userString !=null)
+                if(userInput.getSize() > 0 && key.equals("backspace"))
                 {
                     userInput.pop();
                 }
@@ -220,12 +223,10 @@ public class GameWorld extends World
                 }
             }
         }
-        
-        if(!userInput.isEmpty()){
             userString = stackToString(userInput);
             
             uInputDisplay.updateText(userString);
-        }
+        
         
     }
     
