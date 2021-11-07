@@ -24,7 +24,6 @@ public class GameOverWorld extends World
     
     public void act()
     {
-        GameWorld.GAME_LIVES = 3;
         if(Greenfoot.mouseClicked(goBackButton))        
         {
             Greenfoot.setWorld(new WelcomeWorld());

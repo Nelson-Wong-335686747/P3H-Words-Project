@@ -44,18 +44,18 @@ public class ScoreBar extends Actor
      * @param dead      number of dead bugs
      * @param averageLifespan   
      */
-    public void update(int wordsLeft, int wordsTyped, int livesLeft, int score)
+    public void update(int wordsSpawned, int wordsTyped, int livesLeft, int score)
     {
         // In order to make uniform sizes and preceding zeros:
         String wordsLeftString, wordsTypedString, livesLeftString;
         // If there is only one digit
 
-        wordsLeftString = zeroAdder (wordsLeft, 3);
+        wordsLeftString = zeroAdder (wordsSpawned, 3);
         wordsTypedString = zeroAdder (wordsTyped, 3);
         livesLeftString = zeroAdder (livesLeft, 2);
 
         
-        text = "Score:  " +  score + "   Words Left: " + wordsLeftString + "  Words Typed " + wordsTypedString + "  Lives: " + livesLeftString;
+        text = "Score:  " +  score + "   Words Spawned: " + wordsLeftString + "  Words Typed " + wordsTypedString + "  Lives: " + livesLeftString;
         // Now that we have built the text to output...
         // this.update (String) calls the other version of update(), in this case
         // update(String) - see below

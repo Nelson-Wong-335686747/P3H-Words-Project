@@ -25,7 +25,7 @@ public class GameWorld extends World
     private int timer = 0;
     private int n = 0;
     
-    private int wordsLeft;
+    private int wordsSpawned;
     private int wordsTyped;
     private int score;
     
@@ -74,11 +74,12 @@ public class GameWorld extends World
     public void act(){
         GameMusic.playLoop();
         
-        scoreBar.update(wordsLeft, wordsTyped, GAME_LIVES, score);
+        scoreBar.update(wordsSpawned, wordsTyped, GAME_LIVES, score);
         
-        if(GAME_LIVES <= 0)
+        if(GAME_LIVES < 0)
         {
             stopped();
+            GAME_LIVES = 3;
             Greenfoot.setWorld(new GameOverWorld());
         }
         
@@ -89,6 +90,7 @@ public class GameWorld extends World
             for(Word word: activeWords){
                 word.updatePosition();
             }
+            wordsSpawned++;
         }
         timer++;
     }
