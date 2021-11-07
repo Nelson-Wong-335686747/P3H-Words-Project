@@ -61,7 +61,7 @@ public class GameWorld extends World
         activeWords.enqueue(test);
         
         uInputDisplay = new Word(userString);
-        addObject(uInputDisplay,WORLD_WIDTH/2,650);
+        addObject(uInputDisplay,WORLD_WIDTH/2,685);
     }
     
     public void started () 
@@ -147,7 +147,7 @@ public class GameWorld extends World
             }
             
             userString = userInput.popAll();
-            uInputDisplay.updateText(userString);
+            //uInputDisplay.updateText(userString);
 
         } 
         else {
