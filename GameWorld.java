@@ -72,24 +72,24 @@ public class GameWorld extends World
         nextLevelExp = 5;
     }
     
-    public void started () 
+    public void started() //Method starts music
     {
         GameMusic.setVolume(40);
         GameMusic.playLoop();
     }
     
-    public void stopped() 
+    public void stopped() //Method stops the music
     {
         GameMusic.pause();
     }
     
-    public void typingSound()
+    public void typingSound() //Method for a singular keyboard type sound
     {
         TypeSound.setVolume(100);
         TypeSound.play();
     }
     
-    public boolean checkPosition(Word w)
+    public boolean checkPosition(Word w) //See if the words are out of bounds
     {
         //Checks if the words go out of bounds
         return w.getY() > GameWorld.WORLD_HEIGHT-35; 
@@ -130,7 +130,7 @@ public class GameWorld extends World
         
         scoreBar.update(level, wordsTyped, GAME_LIVES, score);  
         
-        if(GAME_LIVES < 0) //If lives reach less than 0
+        if(GAME_LIVES < 0) //If lives reach less than 0...
         {
             stopped();
             GAME_LIVES = 3;

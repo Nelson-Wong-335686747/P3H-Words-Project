@@ -13,15 +13,18 @@ public class GameOverWorld extends World
     {
         super(800, 600, 1); 
         
-        GreenfootImage bg = new GreenfootImage("gameOver.png");
-        setBackground(bg);
+        //Set the image
+        //GreenfootImage bg = new GreenfootImage("gameOver.png");
+        //setBackground(bg);
         
+        //Add a button
         goBackButton = new Button("Go Back");
         addObject(goBackButton,100,400);
     }
     
     public void act()
     {
+        //If the goBack button is pressed, go back to WelcomeWorld
         if(Greenfoot.mouseClicked(goBackButton))        
         {
             Greenfoot.setWorld(new WelcomeWorld());
