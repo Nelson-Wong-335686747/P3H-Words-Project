@@ -33,11 +33,6 @@ public class Word extends Actor
         return lengthOfWord;
     }
     
-    public boolean getRemoveMe()
-    {
-        return removeMe;
-    }
-    
     public void act() 
     {
         draw();
