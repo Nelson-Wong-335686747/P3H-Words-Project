@@ -55,24 +55,13 @@ public class Word extends Actor
     
     public void move()
     {
-        setLocation(getX(),getY()+50); //random number 
+        setLocation(getX(),getY() + 80); //random number 
     }
     
     public void updatePosition(){
         move();
-        if(checkPosition())
-        { 
-           getWorld().removeObject(this);
-           GameWorld.activeWords.dequeue();
-           GameWorld.GAME_LIVES--;
-        }
     }
-    
-    private boolean checkPosition()
-    {
-        return getY()>GameWorld.WORLD_HEIGHT-35;
-    }
-    
+        
     private void draw(){
         image = new GreenfootImage(text.length()*30 + 100,35);
         Font font = new Font("Century Gothic", false, false, 30);
@@ -86,10 +75,6 @@ public class Word extends Actor
         image.setFont (font);
         drawCenteredText (image,text,27);
     }
-    
-    
-    
-    
     
     // below taken from Mr. Cohen's Button Method
     

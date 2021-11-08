@@ -45,7 +45,6 @@ public class Queue<T> implements Iterable<T>
         return item;
     }
     
-    
     // To make this data structure work with for-each loops
     public Iterator<T> iterator() {
         return new MyIterator();
