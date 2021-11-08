@@ -25,6 +25,7 @@ public class GameWorld extends World
     private static Queue<Word> activeWords = new Queue<Word>();
     private static Stack<Character> userInput = new Stack<Character>();
     
+    //instance variables
     private int timer = 0;
     private int numMissed = 0;
     private boolean immune = false;
@@ -38,7 +39,7 @@ public class GameWorld extends World
     
     public String userString = "";
     
-    //objects
+    //Objects
     private Word tempWord;
     private Word uInputDisplay;
     
@@ -99,9 +100,9 @@ public class GameWorld extends World
     }
     
     public void act(){
-        started();
+        started(); //Music
         
-        checkUserInput(); 
+        checkUserInput(); //User input
         
         if(timer == (int) (1.0/level * 100)) // Way to Adjust timer accordingly with the level
         {
