@@ -16,19 +16,23 @@ public class GameWorld extends World
     private GreenfootSound TypeSound = new GreenfootSound("Type Sound.mp3");
     
     //world variables
-    public static final int WORLD_WIDTH = 800;
-    public static final int WORLD_HEIGHT= 700;
-    public static int GAME_LIVES = 3;
+    private static final int WORLD_WIDTH = 800;
+    private static final int WORLD_HEIGHT= 700;
+    private static int GAME_LIVES = 3;
     
     //data structures
     private ArrayList<String> wordList = new ArrayList<String>();
-    public static Queue<Word> activeWords = new Queue<Word>();
-    public static Stack<Character> userInput = new Stack<Character>();
+    private static Queue<Word> activeWords = new Queue<Word>();
+    private static Stack<Character> userInput = new Stack<Character>();
     
     private int timer = 0;
+    private int numMissed = 0;
+    private boolean immune = false;
     private int n = 0;
     
-    private int wordsSpawned;
+    private int level;
+    private int nextLevelExp;
+    
     private int wordsTyped;
     private int score;
     
@@ -53,53 +57,88 @@ public class GameWorld extends World
         {
         }
         
+        //Add's the scoreBar
         scoreBar = new ScoreBar(800);
         addObject(scoreBar, 400, 15);
         
+        //Makes the words fall
         Word test = new Word(generateString(wordList));
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
         
+        //Add's the object that display's the user's text
         uInputDisplay = new Word(userString);
         addObject(uInputDisplay,WORLD_WIDTH/2,685);
+        
+        //Setting starting level and amount of words needed to be typed before next level
+        level = 1;
+        nextLevelExp = 5;
     }
     
-    public void started () 
+    public void started() //Method starts music
     {
         GameMusic.setVolume(40);
         GameMusic.playLoop();
     }
     
-    public void stopped () 
+    public void stopped() //Method stops the music
     {
         GameMusic.pause();
     }
     
-    public void typingSound()
+    public void typingSound() //Method for a singular keyboard type sound
     {
         TypeSound.setVolume(100);
         TypeSound.play();
+    }
+    
+    public boolean checkPosition(Word w) //See if the words are out of bounds
+    {
+        //Checks if the words go out of bounds
+        return w.getY() > GameWorld.WORLD_HEIGHT-35; 
     }
     
     public void act(){
         started();
         
         checkUserInput(); 
-              
-        if(timer==100){
+        
+        if(timer == (int) (1.0/level * 100)) // Way to Adjust timer accordingly with the level
+        {
             manageWords();
             for(Word word: activeWords){
-                word.updatePosition();
+                word.move();
+                
+                if(checkPosition(word)) //If the words fall out of bounds..
+                { 
+                    /*
+                     * Allows for an invincibility to last until 3 words are fallen.
+                     */                  
+                    activeWords.dequeue();  
+                    this.removeObject(word);
+                    numMissed++;
+                    if (numMissed == 3) 
+                    {
+                        immune = false; //After 3 words fall, invincibility is gone.
+                    }
+                    if(!immune) //If immune is false
+                    {
+                        GameWorld.GAME_LIVES--; //Reduce lives
+                        immune = true; //set immune to true
+                        numMissed = 0; 
+                    }
+                }
             }
-            wordsSpawned++;
         }
         
-        scoreBar.update(wordsSpawned, wordsTyped, GAME_LIVES, score);  
+        scoreBar.update(level, wordsTyped, GAME_LIVES, score);  
         
-        if(GAME_LIVES < 0)
+        if(GAME_LIVES < 0) //If lives reach less than 0...
         {
             stopped();
             GAME_LIVES = 3;
+            
+            //Dequeue all the words and pop every letter in user input
             for(Word word: activeWords){
                 removeObject(word);
                 activeWords.dequeue();
@@ -107,12 +146,14 @@ public class GameWorld extends World
             
             for(char c : userInput){
                 userInput.pop();
-            }
+            } 
             
+            //Set world to GameOverWorld
             Greenfoot.setWorld(new GameOverWorld());
         }
-
+        
         timer++;
+
     }
     
     public void manageWords()
@@ -126,7 +167,7 @@ public class GameWorld extends World
             n=0;
         }
     }
-    
+     
     public void checkUserInput(){
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
@@ -143,151 +184,38 @@ public class GameWorld extends World
                 wordsTyped++;
                 
                 score = score + wordSize.getLength() * 50;
-
+                
+                //If it is time to level up (the amount of words typed reaches the right amount), then level up
+                if(wordsTyped == nextLevelExp) //nextLevelExp is initially set to 5
+                {
+                    level++; //Level Increases
+                    nextLevelExp = 10 + 5 * level; //Leveling up requirements (ex: level 3 requires 25 words typed before level 4)
+                }
             }
             
             userString = userInput.popAll();
-            //uInputDisplay.updateText(userString);
-
         } 
         else {
             String key = Greenfoot.getKey();
-            if(key!= null){
-                if(userInput.getSize() > 0 && key.equals("backspace"))
+            if(key!= null)
+            {
+                // Typing in a letter from a to z
+                if (key.charAt(0) >= 97 && key.charAt(0) <= 122 && key.length() == 1)
+                {
+                     userInput.push(key.charAt(0));
+                     typingSound();
+                }
+                // Entering backspace, and there is already userinput 
+                else if(userInput.getSize() > 0 && key.equals("backspace"))
                 {
                     userInput.pop();
                     typingSound();
                 }
-                else if(key.equals("a"))
+                // Entering backspace, and there isn't userinput, and nothing is being typed
+                else
                 {
-                    userInput.push('a');
-                    typingSound();
-                } 
-                else if(key.equals("b"))
-                {
-                    userInput.push('b');
-                    typingSound();
-                } 
-                else if(key.equals("c"))
-                {
-                    userInput.push('c');
-                    typingSound();
-                } 
-                else if(key.equals("d"))
-                {
-                    userInput.push('d');
-                    typingSound();
-                } 
-                else if(key.equals("e"))
-                {
-                    userInput.push('e');
-                    typingSound();
-                } 
-                else if(key.equals("f"))
-                {
-                    userInput.push('f');
-                    typingSound();
-                } 
-                else if(key.equals("g"))
-                {
-                    userInput.push('g');
-                    typingSound();
-                } 
-                else if(key.equals("h"))
-                {
-                    userInput.push('h');
-                    typingSound();
-                } 
-                else if(key.equals("i"))
-                {
-                    userInput.push('i');
-                    typingSound();
-                } 
-                else if(key.equals("j"))
-                {
-                    userInput.push('j');
-                    typingSound();
-                } 
-                else if(key.equals("k"))
-                {
-                    userInput.push('k');
-                    typingSound();
-                } 
-                else if(key.equals("l"))
-                {
-                    userInput.push('l');
-                    typingSound();
-                } 
-                else if(key.equals("m"))
-                {
-                    userInput.push('m');
-                    typingSound();
-                } 
-                else if(key.equals("n"))
-                {
-                    userInput.push('n');
-                    typingSound();
-                } 
-                else if(key.equals("o"))
-                {
-                    userInput.push('o');
-                    typingSound();
-                } 
-                else if(key.equals("p"))
-                {
-                    userInput.push('p');
-                    typingSound();
-                } 
-                else if(key.equals("q"))
-                {
-                    userInput.push('q');
-                    typingSound();
-                } 
-                else if(key.equals("r"))
-                {
-                    userInput.push('r');
-                    typingSound();
-                } 
-                else if(key.equals("s"))
-                {
-                    userInput.push('s');
-                    typingSound();
-                } 
-                else if(key.equals("t"))
-                {
-                    userInput.push('t');
-                    typingSound();
-                } 
-                else if(key.equals("u"))
-                {
-                    userInput.push('u');
-                    typingSound();
-                } 
-                else if(key.equals("v"))
-                {
-                    userInput.push('v');
-                    typingSound();
-                } 
-                else if(key.equals("w"))
-                {
-                    userInput.push('w');
-                    typingSound();
-                } 
-                else if(key.equals("x"))
-                {
-                    userInput.push('x');
-                    typingSound();
-                } 
-                else if(key.equals("y"))
-                {
-                    userInput.push('y');
-                    typingSound();
-                } 
-                else if(key.equals("z"))
-                {
-                    userInput.push('z');
-                    typingSound();
-                }
+                    typingSound();    
+                }   
             }
         } 
         
@@ -309,7 +237,7 @@ public class GameWorld extends World
      
     public String generateString(ArrayList<String> list){    
         //Gets random number, then finds that index on the list of words on the url in reader.
-        return list.get(Greenfoot.getRandomNumber(10000));
+        return list.get(Greenfoot.getRandomNumber(9894));
     }
 
 }

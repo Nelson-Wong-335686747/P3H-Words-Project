@@ -1,6 +1,7 @@
 import greenfoot.*;
+
 /**
- * When the user loses all 3 lives, then they will be redirected into the WelcomeWorld.
+ * When the user loses all 3 lives, then they will be directed into the GamOverWorld.
  */
 public class GameOverWorld extends World  
 {
@@ -12,16 +13,18 @@ public class GameOverWorld extends World
     {
         super(800, 600, 1); 
         
-        //setBackground(new GreenfootImage("GameOver");
+        //Set the image
+        //GreenfootImage bg = new GreenfootImage("gameOver.png");
+        //setBackground(bg);
         
+        //Add a button
         goBackButton = new Button("Go Back");
         addObject(goBackButton,100,400);
-        
-        
     }
     
     public void act()
     {
+        //If the goBack button is pressed, go back to WelcomeWorld
         if(Greenfoot.mouseClicked(goBackButton))        
         {
             Greenfoot.setWorld(new WelcomeWorld());
