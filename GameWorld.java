@@ -57,13 +57,16 @@ public class GameWorld extends World
         {
         }
         
+        //Add's the scoreBar
         scoreBar = new ScoreBar(800);
         addObject(scoreBar, 400, 15);
         
+        //Makes the words fall
         Word test = new Word(generateString(wordList));
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
         
+        //Add's the object that display's the user's text
         uInputDisplay = new Word(userString);
         addObject(uInputDisplay,WORLD_WIDTH/2,685);
         
@@ -191,8 +194,6 @@ public class GameWorld extends World
             }
             
             userString = userInput.popAll();
-            //uInputDisplay.updateText(userString);
-
         } 
         else {
             String key = Greenfoot.getKey();
