@@ -110,24 +110,20 @@ public class GameWorld extends World
                 { 
                     /*
                      * Allows for an invincibility to last until 3 words are fallen.
-                     */
+                     */                  
+                    activeWords.dequeue();  
+                    this.removeObject(word);
+                    numMissed++;
+                    if (numMissed == 3) 
+                    {
+                        immune = false; //After 3 words fall, invincibility is gone.
+                    }
                     if(!immune) //If immune is false
                     {
                         GameWorld.GAME_LIVES--; //Reduce lives
                         immune = true; //set immune to true
                         numMissed = 0; 
                     }
-                    
-                    activeWords.dequeue();  
-                    this.removeObject(word);
-                    numMissed++;
-                    
-                    if (numMissed == 3) 
-                    {
-                        immune = false; //After 3 words fall, invincibility is gone.
-                    }
-                    
-
                 }
             }
         }
@@ -187,10 +183,10 @@ public class GameWorld extends World
                 score = score + wordSize.getLength() * 50;
                 
                 //If it is time to level up (the amount of words typed reaches the right amount), then level up
-                if(wordsTyped == nextLevelExp)
+                if(wordsTyped == nextLevelExp) //nextLevelExp is initially set to 5
                 {
-                    level++;
-                    nextLevelExp = 10 + 5 * level; 
+                    level++; //Level Increases
+                    nextLevelExp = 10 + 5 * level; //Leveling up requirements (ex: level 3 requires 25 words typed before level 4)
                 }
             }
             
