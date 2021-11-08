@@ -61,7 +61,7 @@ public class GameWorld extends World
         scoreBar = new ScoreBar(800);
         addObject(scoreBar, 400, 15);
         
-        //Makes the words fall
+        //Makes the first word fall and enqueues it
         Word test = new Word(generateString(wordList));
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
@@ -156,7 +156,7 @@ public class GameWorld extends World
 
     }
     
-    public void manageWords()
+    public void manageWords() //Creates more words and makes them fall down
     {
         timer = 0;
         tempWord = new Word(generateString(wordList)); 
