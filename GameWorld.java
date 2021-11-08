@@ -29,6 +29,7 @@ public class GameWorld extends World
     private int timer = 0;
     private int numMissed = 0;
     private boolean immune = false;
+    private boolean canMove = true;
     
     private int level;
     private int nextLevelExp;
@@ -61,7 +62,7 @@ public class GameWorld extends World
         scoreBar = new ScoreBar(800);
         addObject(scoreBar, 400, 15);
         
-        //Makes the words fall
+        //Makes the first word fall
         Word test = new Word(generateString(wordList));
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
@@ -102,22 +103,32 @@ public class GameWorld extends World
         started(); //Music
         
         checkUserInput(); //User input
+
         
         if(timer == (int) (1.0/level * 100)) // Way to adjust timer accordingly with the level
         {
-            manageWords();
+
+            if(canMove)
+            {
+                manageWords();
+            }
+            
             for(Word word: activeWords){
-                word.move();
-                
+                if(canMove)
+                {
+                    word.move();
+                }
                 if(checkPosition(word)) //If the words fall out of bounds..
                 { 
                     /*
                      * Allows for an invincibility to last until 3 words are fallen.
-                     */                  
+                     */   
+                    canMove = false;
                     activeWords.dequeue();  
                     this.removeObject(word);
                     numMissed++;
-                    if (numMissed == 3) 
+                    
+                    if(numMissed == 3) 
                     {
                         immune = false; //After 3 words fall, invincibility is gone.
                     }
@@ -127,6 +138,8 @@ public class GameWorld extends World
                         immune = true; //set immune to true
                         numMissed = 0; 
                     }
+                    
+
                 }
             }
         }
@@ -137,6 +150,7 @@ public class GameWorld extends World
         {
             stopped();
             GAME_LIVES = 3;
+            canMove = true;
             
             //Dequeue all the words and pop every letter in user input
             for(Word word: activeWords){
@@ -152,7 +166,12 @@ public class GameWorld extends World
             Greenfoot.setWorld(new GameOverWorld());
         }
         
-        timer++;
+        if(canMove)
+        {
+            timer++;
+        }
+       
+        checkUserInput(); //So that words can still be typed and entered after a word falls out of bounds
 
     }
     
@@ -180,6 +199,8 @@ public class GameWorld extends World
                 wordsTyped++;
                 
                 score = score + wordSize.getLength() * 50;
+                
+                canMove = true;
                 
                 //If it is time to level up (the amount of words typed reaches the right amount), then level up
                 if(wordsTyped == nextLevelExp) //nextLevelExp is initially set to 5
