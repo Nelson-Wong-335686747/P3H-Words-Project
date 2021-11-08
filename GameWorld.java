@@ -29,7 +29,6 @@ public class GameWorld extends World
     private int timer = 0;
     private int numMissed = 0;
     private boolean immune = false;
-    private int n = 0;
     
     private int level;
     private int nextLevelExp;
@@ -104,7 +103,7 @@ public class GameWorld extends World
         
         checkUserInput(); //User input
         
-        if(timer == (int) (1.0/level * 100)) // Way to Adjust timer accordingly with the level
+        if(timer == (int) (1.0/level * 100)) // Way to adjust timer accordingly with the level
         {
             manageWords();
             for(Word word: activeWords){
@@ -160,13 +159,9 @@ public class GameWorld extends World
     public void manageWords()
     {
         timer = 0;
-        n++;
         tempWord = new Word(generateString(wordList)); 
         addObject(tempWord,WORLD_WIDTH/2,0);
         activeWords.enqueue(tempWord);
-        if(n==3){
-            n=0;
-        }
     }
      
     public void checkUserInput(){
