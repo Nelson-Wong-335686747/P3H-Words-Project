@@ -1,7 +1,7 @@
 import greenfoot.*;
 
 /**
- * When the user loses all 3 lives, then they will be redirected into the WelcomeWorld.
+ * When the user loses all 3 lives, then they will be directed into the GamOverWorld.
  */
 public class GameOverWorld extends World  
 {

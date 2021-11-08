@@ -33,7 +33,6 @@ public class GameWorld extends World
     private int level;
     private int nextLevelExp;
     
-    private int wordsSpawned;
     private int wordsTyped;
     private int score;
     
@@ -131,11 +130,9 @@ public class GameWorld extends World
 
                 }
             }
-        
-            wordsSpawned++;
         }
         
-        scoreBar.update(wordsSpawned, wordsTyped, GAME_LIVES, score);  
+        scoreBar.update(level, wordsTyped, GAME_LIVES, score);  
         
         if(GAME_LIVES < 0) //If lives reach less than 0
         {
@@ -222,7 +219,6 @@ public class GameWorld extends World
                 {
                     typingSound();    
                 }   
-
             }
         } 
         
