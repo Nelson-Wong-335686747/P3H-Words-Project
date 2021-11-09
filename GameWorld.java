@@ -35,6 +35,7 @@ public class GameWorld extends World
     private int lives = 3;
     private int wordsTyped;
     private int score;
+    private int wordsLost = 0; //variable to calculate how many 'extra' words are required for lvl up after losing a life
     
     private String userString = "";
     private boolean missedWord = false;
@@ -147,13 +148,14 @@ public class GameWorld extends World
         {
             word.move(distance);
         }
-        if(activeWords.getFirst().checkPosition()) // if the 'oldest' word goes out of bounds
+        if(activeWords.getSize() > 0 && activeWords.getFirst().checkPosition()) // if the 'oldest' word goes out of bounds
         {
             clearWorld(); 
             if(level>1)
             {
                 level--;
             }
+            wordsLost+=5;
             lives--; //Reduce lives
         }
         
@@ -174,13 +176,14 @@ public class GameWorld extends World
                 
                 wordsTyped++;
                 
+                
                 score = score + wordSize.getLength() * 50;
                 
                 //If it is time to level up (the amount of words typed reaches the right amount), then level up
-                if(wordsTyped == nextLevelExp) //nextLevelExp is initially set to 5
+                if(wordsTyped == nextLevelExp + wordsLost) 
                 {
                     level++; //Level Increases
-                    nextLevelExp = 10 + 5 * level; //Leveling up requirements (ex: level 3 requires 25 words typed before level 4)
+                    nextLevelExp = 5 * level; //Leveling up requirements (ex: level 3 requires 25 words typed before level 4)
                 }
             }
             userString = userInput.popAll();
