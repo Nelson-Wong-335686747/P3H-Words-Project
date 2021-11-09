@@ -25,23 +25,23 @@ public class GameWorld extends World
     private static Queue<Word> activeWords = new Queue<Word>();
     private static Stack<Character> userInput = new Stack<Character>();
     
-    //instance variables
+    //variables
     private int spawnTimer = 0;
     private int moveTimer = 0;
     
-    public static int level;
+    private static int level;
     private int nextLevelExp;
     
     private int lives = 3;
     private int wordsTyped;
     private int score;
     
-    public String userString = "";
+    private String userString = "";
+    private boolean missedWord = false;
     
     //Objects
     private Word tempWord;
     private Word uInputDisplay;
-    
     private ScoreBar scoreBar;
     
     
@@ -118,14 +118,7 @@ public class GameWorld extends World
             lives = 3;
             
             //Dequeue all the words and pop every letter in user input to prevent errors when replaying the game
-            for(Word word: activeWords){
-                removeObject(word);
-                activeWords.dequeue();
-            }
-            
-            for(char c : userInput){
-                userInput.pop();
-            } 
+            clearWorld();
             
             //Set world to GameOverWorld
             Greenfoot.setWorld(new GameOverWorld());
@@ -148,25 +141,22 @@ public class GameWorld extends World
     public void moveWords(int distance)
     {
         //moves all the words that are in the active words queue
-        //if one goes out of bounds, remove it from the world and queue, decrease the level by three (if less than three, then reset), 
+        //if one goes out of bounds,clear the world and queue, decrease the level by one, 
         //and decrease player lives 
         for(Word word: activeWords)
         {
             word.move(distance);
-            
-            if(word.checkPosition()) 
-            { 
-                removeObject(word);
-                activeWords.dequeue();  
-                if(level>2)
-                {
-                    level-=3;
-                } else {
-                    level = 1;
-                }
-                lives--; //Reduce lives
-            }
         }
+        if(activeWords.getFirst().checkPosition()) // if the 'oldest' word goes out of bounds
+        {
+            clearWorld(); 
+            if(level>1)
+            {
+                level--;
+            }
+            lives--; //Reduce lives
+        }
+        
         moveTimer = 0;
     }
     
@@ -232,7 +222,17 @@ public class GameWorld extends World
         }
         return str;
     }
-     
+    
+    public void clearWorld()
+    {
+        //clears all the data structures
+        for(Word word: activeWords){
+            removeObject(word);
+            activeWords.dequeue();
+        }
+        userInput.popAll();
+    }
+    
     public String generateString(ArrayList<String> list){    
         //Gets random number, then finds that index on the list of words on the url in reader.
         return list.get(Greenfoot.getRandomNumber(9894));
