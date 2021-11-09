@@ -185,7 +185,7 @@ public class GameWorld extends World
         
         if (!canMove)
         {
-            canMoveTimer++; //Fradually increase the timer for when the words don't move
+            canMoveTimer++; //Gradually increase the timer for when the words don't move
         }
        
         checkUserInput(); //So that words can still be typed and entered after a word falls out of bounds
