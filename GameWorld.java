@@ -105,7 +105,7 @@ public class GameWorld extends World
         
         checkUserInput(); //User input
         
-        if (canMoveTimer >= 120) //When the word can't move, after a few seconds allow for the movement of words again
+        if (canMoveTimer >= 400) //When the word can't move, after a few seconds allow for the movement of words again
         {
             canMove = true;
             canMoveTimer = 0; //Reset timer to 0
