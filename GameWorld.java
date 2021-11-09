@@ -114,7 +114,7 @@ public class GameWorld extends World
             pauseTimer = 0; //Reset timer to 0
         }
         
-        if(spawnTimer > (int) (1.0/level * 100)) // Way to adjust timer accordingly with the level
+        if(spawnTimer > (int) (7500 - 500*level)) // Way to adjust timer accordingly with the level
         {
 
             if(canMove)
