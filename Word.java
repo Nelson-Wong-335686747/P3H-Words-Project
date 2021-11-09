@@ -48,13 +48,15 @@ public class Word extends Actor
         return text;
     }
     
-    public void move()
+    public void move(int d)
     {
-        setLocation(getX(),getY() + 80); //random number 
+        setLocation(getX(),getY() + d); //random number 
     }
     
-    public void updatePosition(){
-        move();
+    public boolean checkPosition() //See if the words are out of bounds
+    {
+        //Checks if the words go out of bounds
+        return this.getY() > GameWorld.WORLD_HEIGHT-35; 
     }
         
     private void draw(){
