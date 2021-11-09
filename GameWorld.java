@@ -27,6 +27,7 @@ public class GameWorld extends World
     
     //instance variables
     private int timer = 0;
+    private int canMoveTimer = 0;
     private int numMissed = 0;
     private boolean immune = false;
     private boolean canMove = true;
@@ -62,7 +63,7 @@ public class GameWorld extends World
         scoreBar = new ScoreBar(800);
         addObject(scoreBar, 400, 15);
         
-        //Makes the first word fall
+        //Makes the first word fall and enqueues it
         Word test = new Word(generateString(wordList));
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
@@ -103,9 +104,14 @@ public class GameWorld extends World
         started(); //Music
         
         checkUserInput(); //User input
-
         
-        if(timer == (int) (1.0/level * 100)) // Way to adjust timer accordingly with the level
+        if (canMoveTimer >= 120) //When the word can't move, after a few seconds allow for the movement of words again
+        {
+            canMove = true;
+            canMoveTimer = 0; //Reset timer to 0
+        }
+        
+        if(timer >= (int) (1.0/level * 100)) // Way to adjust timer accordingly with the level
         {
 
             if(canMove)
@@ -113,25 +119,35 @@ public class GameWorld extends World
                 manageWords();
             }
             
-            for(Word word: activeWords){
+            for(Word word: activeWords)
+            {
                 if(canMove)
                 {
                     word.move();
                 }
+                
                 if(checkPosition(word)) //If the words fall out of bounds..
                 { 
+                    activeWords.dequeue();  
+                    this.removeObject(word);
+                    
+                    if(checkPosition(activeWords.getFirst()))
+                    {
+                        this.removeObject(activeWords.getFirst());
+                    }
+ 
+                    canMove = false;
+                    
+                    numMissed++;
+                    
                     /*
                      * Allows for an invincibility to last until 3 words are fallen.
                      */   
-                    canMove = false;
-                    activeWords.dequeue();  
-                    this.removeObject(word);
-                    numMissed++;
-                    
                     if(numMissed == 3) 
                     {
                         immune = false; //After 3 words fall, invincibility is gone.
                     }
+                    
                     if(!immune) //If immune is false
                     {
                         GameWorld.GAME_LIVES--; //Reduce lives
@@ -139,7 +155,6 @@ public class GameWorld extends World
                         numMissed = 0; 
                     }
                     
-
                 }
             }
         }
@@ -166,20 +181,22 @@ public class GameWorld extends World
             Greenfoot.setWorld(new GameOverWorld());
         }
         
-        if(canMove)
+        timer++;
+        
+        if (!canMove)
         {
-            timer++;
+            canMoveTimer++; //Fradually increase the timer for when the words don't move
         }
        
         checkUserInput(); //So that words can still be typed and entered after a word falls out of bounds
 
     }
     
-    public void manageWords()
+    public void manageWords() //Creates more words and makes them fall down
     {
         timer = 0;
         tempWord = new Word(generateString(wordList)); 
-        addObject(tempWord,WORLD_WIDTH/2,0);
+        addObject(tempWord,WORLD_WIDTH/2,100);
         activeWords.enqueue(tempWord);
     }
      
@@ -190,7 +207,6 @@ public class GameWorld extends World
         if(activeWords.getSize() > 0 && Greenfoot.isKeyDown("enter"))
         {
             //compare userString with text of first in queue 
-
             if(activeWords.getFirst().getText().equals(userString))
             {
                 removeObject(activeWords.getFirst());
@@ -237,7 +253,6 @@ public class GameWorld extends World
         } 
         
         userString = stackToString(userInput);
-
         uInputDisplay.updateText(userString);
         
     }
