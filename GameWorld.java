@@ -26,17 +26,20 @@ public class GameWorld extends World
     private static Stack<Character> userInput = new Stack<Character>();
     
     //instance variables
-    private int timer = 0;
-    private int canMoveTimer = 0;
+    private int spawnTimer = 0;
+    private int moveTimer = 0;
+    private int pauseTimer = 0;
     private int numMissed = 0;
-    private boolean immune = false;
     private boolean canMove = true;
+    private boolean paused = false;
     
     private int level;
     private int nextLevelExp;
     
     private int wordsTyped;
     private int score;
+    
+    
     
     public String userString = "";
     
@@ -105,58 +108,22 @@ public class GameWorld extends World
         
         checkUserInput(); //User input
         
-        if (canMoveTimer >= 400) //When the word can't move, after a few seconds allow for the movement of words again
+        if (pauseTimer >= 400) //When the word can't move, after a few seconds allow for the movement of words again
         {
             canMove = true;
-            canMoveTimer = 0; //Reset timer to 0
+            pauseTimer = 0; //Reset timer to 0
         }
         
-        if(timer >= (int) (1.0/level * 100)) // Way to adjust timer accordingly with the level
+        if(spawnTimer > (int) (1.0/level * 100)) // Way to adjust timer accordingly with the level
         {
 
             if(canMove)
             {
-                manageWords();
+                addWords();
+                moveWords();
             }
             
-            for(Word word: activeWords)
-            {
-                if(canMove)
-                {
-                    word.move();
-                }
-                
-                if(checkPosition(word)) //If the words fall out of bounds..
-                { 
-                    activeWords.dequeue();  
-                    this.removeObject(word);
-                    
-                    if(checkPosition(activeWords.getFirst()))
-                    {
-                        this.removeObject(activeWords.getFirst());
-                    }
- 
-                    canMove = false;
-                    
-                    numMissed++;
-                    
-                    /*
-                     * Allows for an invincibility to last until 3 words are fallen.
-                     */   
-                    if(numMissed == 3) 
-                    {
-                        immune = false; //After 3 words fall, invincibility is gone.
-                    }
-                    
-                    if(!immune) //If immune is false
-                    {
-                        GameWorld.GAME_LIVES--; //Reduce lives
-                        immune = true; //set immune to true
-                        numMissed = 0; 
-                    }
-                    
-                }
-            }
+            
         }
         
         scoreBar.update(level, wordsTyped, GAME_LIVES, score);  
@@ -167,39 +134,58 @@ public class GameWorld extends World
             GAME_LIVES = 3;
             canMove = true;
             
-            //Dequeue all the words and pop every letter in user input
-            for(Word word: activeWords){
-                removeObject(word);
-                activeWords.dequeue();
-            }
-            
-            for(char c : userInput){
-                userInput.pop();
-            } 
+            //Dequeue all the words and pop every letter in user input to prevent errors
+            clearWorld();
             
             //Set world to GameOverWorld
             Greenfoot.setWorld(new GameOverWorld());
         }
         
-        timer++;
-        
-        if (!canMove)
+        if (!paused)
         {
-            canMoveTimer++; //Gradually increase the timer for when the words don't move
+            pauseTimer++; //Gradually increase the timer for when the words don't move
+        } else {    
+            spawnTimer++;
+            moveTimer++;
         }
        
         checkUserInput(); //So that words can still be typed and entered after a word falls out of bounds
 
     }
     
-    public void manageWords() //Creates more words and makes them fall down
+    public void addWords() //Creates more words and makes them fall down
     {
-        timer = 0;
+        spawnTimer = 0;
         tempWord = new Word(generateString(wordList)); 
         addObject(tempWord,WORLD_WIDTH/2,100);
         activeWords.enqueue(tempWord);
     }
-     
+    
+    public void moveWords()
+    {
+        for(Word word: activeWords)
+        {
+            if(canMove)
+            {
+                word.move();
+            }
+            
+            if(checkPosition(word)) //If the words fall out of bounds..
+            { 
+                activeWords.dequeue();  
+                this.removeObject(word);
+                
+                if(checkPosition(activeWords.getFirst()))
+                {
+                    this.removeObject(activeWords.getFirst());
+                }
+
+                canMove = false;
+                
+            }
+        }
+    }
+    
     public void checkUserInput(){
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
@@ -266,7 +252,16 @@ public class GameWorld extends World
         }
         return str;
     }
-     
+    
+    public void clearWorld()
+    {
+        for(Word word: activeWords){
+            removeObject(word);
+            activeWords.dequeue();
+        }
+        userInput.popAll();
+    }
+    
     public String generateString(ArrayList<String> list){    
         //Gets random number, then finds that index on the list of words on the url in reader.
         return list.get(Greenfoot.getRandomNumber(9894));
