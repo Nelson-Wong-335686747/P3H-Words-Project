@@ -14,12 +14,12 @@ public class GameOverWorld extends World
         super(800, 600, 1); 
         
         //Set the image
-        //GreenfootImage bg = new GreenfootImage("gameOver.png");
-        //setBackground(bg);
+        GreenfootImage bg = new GreenfootImage("GameOver.png");
+        setBackground(bg);
         
         //Add a button
         goBackButton = new Button("Go Back");
-        addObject(goBackButton,100,400);
+        addObject(goBackButton,150,520);
     }
     
     public void act()
