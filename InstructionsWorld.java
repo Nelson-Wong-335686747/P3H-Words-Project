@@ -37,11 +37,11 @@ public class InstructionsWorld extends World
         
         //Draw two buttons
         returnButton = new Button ("Back");
-        beginButton = new Button ("Begin");
+        beginButton = new Button ("Begin Game");
         
         //Set location for buttons
         addObject(returnButton, 100, 570);
-        addObject(beginButton, 700, 570);
+        addObject(beginButton, 675, 570);
     }
 
     public void started () 
