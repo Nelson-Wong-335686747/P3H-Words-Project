@@ -102,7 +102,7 @@ public class GameWorld extends World
         
         checkUserInput(); //User input
         
-        if (pauseTimer >= 5000) //When the word can't move, after a few seconds allow for the movement of words again
+        if (pauseTimer >= 30) //When the word can't move, after a short while
         {
             canMove = true;
             pauseTimer = 0; //Reset timer to 0
@@ -112,21 +112,21 @@ public class GameWorld extends World
         {
             //spawns words every set amount of time, depending on the current level
             
-            if((spawnTimer > 3000 - 250*level) && level < 9)  
+            if((spawnTimer > 180 - 15*level) && level < 9)  
             {
                 addWord();
             }
-            else if(spawnTimer > 500 && level > 10)
+            else if(spawnTimer > 30 && level > 10)
             {
-                
+                addWord(); 
             }
             
             //moves all the words (aside from user input) every set amount of time, depending on the current level
-            if(moveTimer>1000-(100*level) && level < 6)
+            if(moveTimer>120 -(15*level) && level < 6)
             {
                 moveWords(30);
             }
-            else if(level > 6 && moveTimer>300) //If the moveTimer decreased any further, words would move way too fast for it to be playable
+            else if(level > 6 && moveTimer>25) //If the moveTimer decreased any further, words would move way too fast for it to be playable
             {
                 moveWords(30);
             }

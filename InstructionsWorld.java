@@ -36,8 +36,8 @@ public class InstructionsWorld extends World
         background.drawString ("Instructions",635, 70);
         
         //Draw two buttons
-        returnButton = new Button ("Back");
-        beginButton = new Button ("Begin Game");
+        returnButton = new Button ("<--Back");
+        beginButton = new Button ("Begin Game-->");
         
         //Set location for buttons
         addObject(returnButton, 100, 570);
@@ -56,18 +56,20 @@ public class InstructionsWorld extends World
     
     public void act () 
     {
-        started();
-        checkMouse();
+        started(); //Loops the song
+        checkMouse(); //Checks what the mouse's input is
     }
     
     private void checkMouse() 
     {
+        //If the returnButton is clicked, user will go back to WelcomeWorld
         if (Greenfoot.mouseClicked(returnButton))
         {
             stopped();
             Greenfoot.setWorld(new WelcomeWorld());
         }
         
+        //If the beginButton is clicked, the game will start
         if(Greenfoot.mouseClicked(beginButton))
         {
             stopped();
