@@ -102,7 +102,7 @@ public class GameWorld extends World
         
         checkUserInput(); //User input
         
-        if (pauseTimer >= 1000) //When the word can't move, after a few seconds allow for the movement of words again
+        if (pauseTimer >= 10000) //When the word can't move, after a few seconds allow for the movement of words again
         {
             canMove = true;
             pauseTimer = 0; //Reset timer to 0
@@ -110,13 +110,13 @@ public class GameWorld extends World
         
         if(canMove){
             //spawns words every set amount of time, depending on the current level
-            if(spawnTimer > 100) 
+            if(spawnTimer > 7500 - 500*level)  
             {
                 addWord();
             }
             
             //moves all the words (aside from user input) every set amount of time, depending on the current level
-            if(moveTimer> 100) 
+            if(moveTimer>1000-(100*level))
             {
                 moveWords(30);
             }
@@ -171,8 +171,7 @@ public class GameWorld extends World
         if(!activeWords.isEmpty() && activeWords.getFirst().checkPosition()) // if the 'oldest' word goes out of bounds, get size is to prevent errors
         {
             //remove the oldest world from the world and queue
-            removeObject(activeWords.getFirst());
-            activeWords.dequeue();
+            clearWorld();
             if(level>1) //so that the game slows down a bit
             {
                 level--;
