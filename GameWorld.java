@@ -235,6 +235,7 @@ public class GameWorld extends World
             }
         } 
         
+        //updates the display and userString
         userString = stackToString(userInput);
         uInputDisplay.updateText(userString);
         
