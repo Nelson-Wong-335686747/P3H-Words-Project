@@ -37,7 +37,7 @@ public class GameWorld extends World
     private int wordsTyped;
     private int score;
     
-    
+   
     
     public String userString = "";
     
@@ -64,7 +64,7 @@ public class GameWorld extends World
         scoreBar = new ScoreBar(800);
         addObject(scoreBar, 400, 15);
         
-        //Makes the first word fall and enqueues it
+        //Makes the first word and enqueues it
         Word test = new Word(generateString(wordList));
         addObject(test, WORLD_WIDTH/2, WORLD_HEIGHT/2);
         activeWords.enqueue(test);
@@ -122,11 +122,12 @@ public class GameWorld extends World
             }
         }
         
-        scoreBar.update(level, wordsTyped, lives, score);  
+        scoreBar.update(level, wordsTyped, lives, score);  //updates the score bar at the top of the screen
         
         if(lives < 0) //If lives reach less than 0...
         {
             stopped();
+            //reset the lives variable
             lives = 3;
             
             //Dequeue all the words and pop every letter in user input to prevent errors when replaying the game
@@ -136,9 +137,9 @@ public class GameWorld extends World
             Greenfoot.setWorld(new GameOverWorld());
         }
         
-        if(!canMove)
+        if(!canMove) //if the words are paused, update the pause timer, if not, then update the spawn and move timers
         {
-            pauseTimer++; //Gradually increase the timer for when the words don't move
+            pauseTimer++; 
         } else {    
             spawnTimer++;
             moveTimer++;
@@ -149,10 +150,11 @@ public class GameWorld extends World
     public void addWord() 
     {
         //Creates a word using a string from the url and adds it to the queue
-        spawnTimer = 0;
         tempWord = new Word(generateString(wordList)); 
         addObject(tempWord,WORLD_WIDTH/2,75);
         activeWords.enqueue(tempWord);
+        
+        spawnTimer = 0; //resets the spawn timer
     }
      
     public void moveWords(int distance)
@@ -165,36 +167,40 @@ public class GameWorld extends World
         {
             word.move(distance);
         }
-        if(activeWords.getSize() > 0 && activeWords.getFirst().checkPosition()) // if the 'oldest' word goes out of bounds
+        if(!activeWords.isEmpty() && activeWords.getFirst().checkPosition()) // if the 'oldest' word goes out of bounds, get size is to prevent errors
         {
+            //remove the oldest world from the world and queue
             removeObject(activeWords.getFirst());
             activeWords.dequeue();
-            if(level>1)
+            
+            if(level>1) //so that the game slows down a bit
             {
                 level--;
             }
-            canMove = false;
+            
+            canMove = false; //used to pause the spawning and movement of words
+            
             lives--; //Reduce lives
         }
         
-        moveTimer = 0;
+        moveTimer = 0; //resets the move timer
     }
     
     public void checkUserInput(){
         //make it so that all the letters are added to a string/stack or something, then when 'enter' send it through
         //other than that there shouldnt need to be any other user input?
         //everything else should be related to the mouse
-        if(activeWords.getSize() > 0 && Greenfoot.isKeyDown("enter"))
+        if(!activeWords.isEmpty() && Greenfoot.isKeyDown("enter"))
         {
             //compare userString with text of first in queue 
-            if(activeWords.getFirst().getText().equals(userString))
+            if(activeWords.getFirst().getText().equals(userString)) //if correct,
             {
                 removeObject(activeWords.getFirst());
                 Word wordSize = activeWords.dequeue();
                 
                 wordsTyped++;
                 
-                score = score + wordSize.getLength() * 50;
+                score = score + wordSize.getLength() * 50; //increases score based on the length of the word
                 
                 canMove = true;
                 
@@ -202,33 +208,26 @@ public class GameWorld extends World
                 if(wordsTyped == nextLevelExp) //nextLevelExp is initially set to 5
                 {
                     level++; //Level Increases
-                    nextLevelExp = 5 * level; //Leveling up requirements (ex: level 3 requires 25 words typed before level 4)
+                    nextLevelExp = 5 * level; 
                 }
             }
             
-            userString = userInput.popAll();
+            userString = userInput.popAll(); //clears the userInput word and user string
         } 
         else {
-            String key = Greenfoot.getKey();
+            String key = Greenfoot.getKey(); //gets user input for all the letters and backspace
             if(key!= null)
             {
                 // Typing in a letter from a to z
                 if (key.charAt(0) >= 97 && key.charAt(0) <= 122 && key.length() == 1)
                 {
                      userInput.push(key.charAt(0));
-                     typingSound();
                 }
-                // Entering backspace, and there is already userinput 
-                else if(userInput.getSize() > 0 && key.equals("backspace"))
+                else if(!userInput.isEmpty() && key.equals("backspace")) //if backspace is entered and userInput is not empty
                 {
                     userInput.pop();
-                    typingSound();
                 }
-                // Entering backspace, and there isn't userinput, and nothing is being typed
-                else
-                {
-                    typingSound();    
-                }   
+                typingSound(); 
             }
         } 
         

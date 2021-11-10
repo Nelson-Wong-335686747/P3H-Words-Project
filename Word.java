@@ -1,11 +1,5 @@
 import greenfoot.*;  // (World, Actor, GreenfootImage, Greenfoot and MouseInfo)
 
-/**
- * Write a description of class Display here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
 public class Word extends Actor
 {
     private GreenfootImage image;
@@ -18,7 +12,7 @@ public class Word extends Actor
     private boolean removeMe;
     
     
-    public Word(String string){ // add paramater for y value
+    public Word(String string){
         text = string;
         
         draw();
@@ -26,10 +20,9 @@ public class Word extends Actor
         
     }
     
-    public int getLength() //Get's the length of the word
+    public int getLength() //Get's the length of the string for the centered text
     {
         int lengthOfWord = text.length();
-        
         return lengthOfWord;
     }
     
@@ -39,23 +32,23 @@ public class Word extends Actor
         setImage(image);
     }    
     
-    public void updateText(String str){
+    public void updateText(String str){ //changes the text value, which is then used to update the image
         text = str;
     }
     
-    public String getText()
+    public String getText() //returns text value, so it can be compared in the game
     {
         return text;
     }
     
-    public void move(int d)
+    public void move(int d) //moves the word by the given number
     {
-        setLocation(getX(),getY() + d); //random number 
+        //public method, not in the class's act method so that not all words will move
+        setLocation(getX(),getY() + d);  
     }
     
-    public boolean checkPosition() //See if the words are out of bounds
+    public boolean checkPosition() //Returns true if the word is passed an assigned y value
     {
-        //Checks if the words go out of bounds
         return getY() > GameWorld.WORLD_HEIGHT-35; 
     }
     
@@ -63,7 +56,8 @@ public class Word extends Actor
         move(distance);
     }
         
-    private void draw(){
+    private void draw()
+    {
         image = new GreenfootImage(text.length()*30 + 100,35);
         Font font = new Font("Century Gothic", false, false, 30);
         
