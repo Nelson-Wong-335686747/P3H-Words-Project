@@ -230,10 +230,9 @@ public class GameWorld extends World
                 typingSound(); 
             }
         } 
-        
+        //updates the display and userString
         userString = stackToString(userInput);
         uInputDisplay.updateText(userString);
-        
     }
 
     public String stackToString(Stack<Character> stack)
