@@ -151,10 +151,11 @@ public class GameWorld extends World
     public void addWord() 
     {
         //Creates a word using a string from the url and adds it to the queue
-        spawnTimer = 0;
+
         tempWord = new Word(generateString(wordList)); 
         addObject(tempWord,WORLD_WIDTH/2,75);
         activeWords.enqueue(tempWord);
+        spawnTimer = 0;
     }
      
     public void moveWords(int distance)
